@@ -1,5 +1,5 @@
 import { navLinks } from "../constants";
-import { FaBars, FaRegUser, FaSearch } from "react-icons/fa";
+import { FaBars, FaRegUser, FaSearch, FaTimes } from "react-icons/fa";
 import Button from "./Button";
 import { NavLink } from "react-router-dom";
 import Register from "./Register";
@@ -7,14 +7,24 @@ import { useState } from "react";
 
 export const Navbar = () => {
   const [registered, setRegistered] = useState(false);
+  const [searchBar, setSearchBar] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 left-0 z-[1000] w-full flex justify-between items-center lg:px-12 px-4 py-4 backdrop-blur-lg md:px-2 md:py-2 bg-[rgba(255,255,255,0.7)]">
+    <header className=" sticky top-0 left-0 z-[1000] w-full flex justify-between items-center lg:px-12 px-4 py-4 backdrop-blur-lg md:px-2 md:py-2 bg-[rgba(255,255,255,0.7)]">
       <div className="flex items-center justify-center gap-5">
-        <button className="text-primaryColor cursor-pointer block sm:hidden">
-          <FaBars className=" text-xl sm:text-3xl " />
+        <button
+          className="text-primaryColor cursor-pointer block lg:hidden"
+          onClick={() => {
+            if (searchBar) {
+              setSearchBar(!searchBar);
+            }
+            setIsMenuOpen(!isMenuOpen);
+          }}
+        >
+          <FaBars className=" text-xl sm:text-2xl " />
         </button>
-        <div className="w-20 h-12 sm:w-36 sm:h-12 md:w-24">
+        <div className="w-20 h-12 sm:w-24 sm:h-12 md:w-24">
           <a href="/">
             <img
               src="/cinespectra-high-resolution-logo-transparent.png"
@@ -24,10 +34,10 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* search bar
+      {/* search bar for lg devices
        */}
 
-      <div className=" hidden sm:flex items-center gap-2 px-2 w-[550px] md:w-[400px] h-12 bg-[rgba(255,255,255,0.5)] rounded-md border border-primaryColor">
+      <div className=" hidden sm:flex items-center gap-2 px-2 w-[550px] md:w-[500px] sm:w-[400px] h-12 bg-[rgba(255,255,255,0.5)] rounded-md border border-primaryColor">
         <FaSearch className="text-blue-800 text-xl cursor-pointer" />
         <input
           type="search"
@@ -36,6 +46,7 @@ export const Navbar = () => {
         />
       </div>
       <nav className="min-w-7xl ">
+        {/* navlinks for lg devices */}
         <ul className="hidden lg:flex justify-center items-center md:gap-4 md:text-lg gap-8 text-xl">
           {navLinks.map((link) => (
             <li
@@ -67,25 +78,89 @@ export const Navbar = () => {
           hidden={"hidden"}
           handleClick={() => setRegistered(!registered)}
         />
-        <button>
+        <button onClick={() => setSearchBar(!searchBar)}>
           {" "}
           <FaSearch className="sm:hidden text-xl cursor-pointer text-primaryColor" />
         </button>
         <button className="cursor-pointer block  sm:hidden ">
           <FaRegUser
             className="sm:text-primaryColor text-xl sm:text-3xl text-primaryColor"
-            onClick={() => setRegistered(!registered)}
+            onClick={() => {
+              if (searchBar) {
+                setSearchBar(!searchBar);
+              }
+              setRegistered(!registered);
+            }}
           />
         </button>
         {registered && (
           <Register
             registered={registered}
-            setRegister={setRegistered}
-            iconColor={"text-orange-500"}
-            btnHover={"hover:bg-orange-500 hover:text-white"}
+            setRegistered={setRegistered}
+            iconColor={"text-primaryColor"}
+            btnHover={"hover:bg-primaryColor hover:text-white"}
           />
         )}
       </div>
+
+      {/* navlinks for sm devices */}
+      {isMenuOpen && (
+        <div className=" absolute top-0 left-0 z-20 w-full h-screen bg-[rgba(0,0,0,0.8)]">
+          <div className="relative  w-[60%] sm:w-[25%]">
+            {" "}
+            <ul className=" bg-primaryColor h-screen  flex flex-col justify-start items-center pt-[50px] md:text-lg gap-12 text-xl">
+              {navLinks.map((link) => (
+                <li
+                  key={link.name}
+                  className=" text-sm sm:text-base lg:text-1xl border-b pb-5 border-slate-500 w-full text-center
+            "
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "active-nav-sm"
+                        : " text-white font-semibold  hover:text-slate-300 uppercase"
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+            {/* close button */}
+            <button
+              className="absolute top-0 right-0 p-2 bg-white border border-primaryColor rounded-bl-xl text-primaryColor text-xl cursor-pointer"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {" "}
+              <FaTimes />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* search bar for mobile devices */}
+      {searchBar && (
+        <div className="fixed top-[100%] left-0 bg-primaryColor px-2 h-40 sm:h-32 w-full flex justify-center items-center">
+          <div className="flex items-center gap-2 px-2 w-[380px]  md:w-[500px] h-12 bg-[rgba(255,255,255,0.5)] rounded-md bg-white">
+            <FaSearch className="text-blue-800 text-xl cursor-pointer" />
+            <input
+              type="search"
+              placeholder="Search for movies or tvseries"
+              className="h-full w-full bg-transparent text-blue-800 focus:outline-none placeholder:text-blue-800"
+            />
+          </div>
+          <button
+            className="absolute top-0 right-0 p-2 bg-white border border-primaryColor rounded-bl-xl text-primaryColor text-xl cursor-pointer"
+            onClick={() => setSearchBar(!searchBar)}
+          >
+            {" "}
+            <FaTimes />
+          </button>
+        </div>
+      )}
     </header>
   );
 };

@@ -1,32 +1,16 @@
 .active-nav {
   @apply underline capitalize underline-offset-4 text-primaryColor font-semibold;
 }
+.active-nav-sm {
+  @apply text-blue-400 font-semibold;
+}
 .active-category-btn {
   @apply bg-blue-500 hover:text-white;
 }
-.swiper-button-next::after {
-  position: absolute;
-  top: 250%;
-  color: white;
-  background-color: rgba(4, 41, 53, 1);
-  padding: 5px;
-  border-radius: 5px;
-  display: none;
-
-}
+.swiper-button-next::after,
 .swiper-button-prev::after {
   display: none;
-  position: absolute;
-  top: 400%;
-  right: -3350%;
-  color: white;
-  background-color: rgba(4, 41, 53, 1);
-  padding: 5px;
-  border-radius: 5px;
 }
-.swiper-button-next:hover:after,
-.swiper-button-prev:hover:after {
-  background-color: rgba(255, 255, 255, 1);
-  color: black;
+.swiper-pagination {
+  display: none;
 }
-

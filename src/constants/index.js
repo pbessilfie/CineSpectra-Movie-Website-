@@ -17,6 +17,18 @@ export const navLinks = [
   },
 ];
 
+export const footerLinks = [
+  { path: "/movies", name: "Movies" },
+  { path: "/tv-series", name: "TV Series" },
+  { path: "/top-imdb", name: "Top IMDbs" },
+  { path: "/tv-series", name: "Action" },
+  { path: "/tv-series", name: "Comedy" },
+  { path: "/tv-series", name: "Drama" },
+  { path: "/tv-series", name: "Fantasy" },
+  { path: "/tv-series", name: "Horro" },
+  { path: "/tv-series", name: "Mystery" },
+];
+
 export const movieData = [
   {
     id: 1,

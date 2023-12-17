@@ -41,12 +41,13 @@ const Home = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute top-[50%] left-2 text-white min-w-[300px] md:w-[45%] sm:w-[40%] md: p-6 backdrop-blur-md">
+              0
+              <div className="absolute top-[50%] md:top-[45%] left-2 text-white min-w-[300px] md:w-[50%] sm:w-[40%] lg:w-[40%] md:p-6 backdrop-blur-md">
                 <h2 className="text-xl md:text-3xl font-bold text-white mb-8 sm:4">
                   {movie.title}
                 </h2>
 
-                <div className="hidden justify-between items-center gap-4 sm:flex md:w-[50%] sm:w-[90%] m-4">
+                <div className="hidden justify-between items-center gap-4 sm:flex md:w-[75%] lg:w-[50%} sm:w-[90%] m-4 ">
                   <div className="flex gap-1  items-center">
                     <FaPlayCircle />
                     <span>{movie.category}</span>
