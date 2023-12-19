@@ -1,25 +1,82 @@
 import { useState, useEffect } from "react";
 import TrendingCards from "./TrendingCards";
-import { movieData } from "../constants";
 
 const Trending = () => {
-  const [movies, setMovies] = useState(movieData);
-  const categories = ["Movie", "TV"];
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [trendingTvSeries, setTrendingTvSeries] = useState([]);
+  const categories = ["movie", "show"];
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeCategory, setActiveCategory] = useState(categories[0]);
 
+  // fetching trending movies
   useEffect(() => {
-    const filteredMovies = movieData.filter(
-      (movie) => movie.category === activeCategory
+    async function fetchLatestMovies() {
+      const url = "https://movies-api14.p.rapidapi.com/home";
+      const options = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key":
+            "5077291e76msh72ea80f762f4575p113f6djsn2af64b33e436",
+          "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
+        },
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        const trendingMovies = result[0].movies;
+        setTrendingMovies(trendingMovies);
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchLatestMovies();
+
+    //  fetching the most trending tv shows
+    async function fetchLatestTvShows() {
+      const url = "https://movies-api14.p.rapidapi.com/home";
+      const options = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key":
+            "5077291e76msh72ea80f762f4575p113f6djsn2af64b33e436",
+          "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
+        },
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        const trendingTvShows = result[5].movies;
+        setTrendingTvSeries(trendingTvShows);
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchLatestTvShows();
+  }, []);
+
+  // Joining trendingMovies and trendingTvSeries together
+  const trending = trendingMovies.concat(trendingTvSeries);
+  console.log(trending);
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const filteredMovies = trending.filter(
+      (movie) => movie.contentType === activeCategory
     );
     setMovies(filteredMovies);
-  }, [activeCategory]);
+  }, [activeCategory, trending]);
+
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setActiveCategory(category);
   };
+
   return (
-    <div className="bg-[#122C36] p-4 lg:px-40 py-16 mx-auto">
+    <div className="bg-secondaryColor p-4 lg:px-40 py-16 mx-auto">
       <div className="flex items-center gap-4 px-4 mb-6">
         <h2 className="text-2xl sm:text-4xl font-semibold text-slate-300">
           Trending
@@ -36,7 +93,7 @@ const Trending = () => {
               handleCategoryChange(category);
             }}
           >
-            {category === "TV" ? category + " Series" : category}
+            {category === "show" ? "Tv " + category : category}
           </button>
         ))}
       </div>
