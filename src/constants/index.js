@@ -43,6 +43,7 @@ export const movieData = [
     coverImage: "/src/assets/movie_card.jpg",
     src: "",
     duration: "180m",
+    imdb: '9.2'
   },
   {
     id: 1,

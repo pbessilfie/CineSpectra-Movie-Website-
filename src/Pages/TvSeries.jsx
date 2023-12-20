@@ -1,8 +1,16 @@
+import TvSeriesCards from "../Components/TvSeriesCards";
 
 const TvSeries = () => {
   return (
-    <div>TvSeries</div>
-  )
-}
+    <div className="bg-secondaryColor p-4 lg:px-16 py-10 mx-auto">
 
-export default TvSeries
+      <h2 className="text-2xl sm:text-4xl font-semibold text-slate-300 mb-6 ml-20">
+        TV Series
+      </h2>
+
+      <TvSeriesCards />
+    </div>
+  );
+};
+
+export default TvSeries;

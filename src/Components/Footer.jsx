@@ -3,7 +3,7 @@ import { footerLinks } from "../constants";
 const Footer = () => {
   return (
     <>
-      <section className="flex flex-col lg:flex lg:flex-row gap-4 bg-black text-white px-5 py-2 lg:py-10 pb-20">
+      <section className="flex flex-col lg:flex lg:flex-row gap-4 bg-black text-white px-5 py-2 lg:py-10 pb-20 border-t-2 border-t-slate-500">
         <div className="w-36">
           <Link to={"/"}>
             {" "}

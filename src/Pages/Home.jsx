@@ -23,7 +23,7 @@ const Home = () => {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "5077291e76msh72ea80f762f4575p113f6djsn2af64b33e436",
+            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
           "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
         },
       };
@@ -67,9 +67,9 @@ const Home = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              0
-              <div className="absolute top-[50%] md:top-[45%] left-2 text-white min-w-[300px] md:w-[50%] sm:w-[40%] lg:w-[40%] md:p-6 backdrop-blur-md">
-                <h2 className="text-xl md:text-3xl font-bold text-white mb-8 sm:4">
+              
+              <div className="absolute top-[50%] md:top-[45%] left-2 text-white min-w-[300px] md:w-[50%] sm:w-[40%] lg:w-[40%] md:p-6 bg-[rgba(0,10,100,0.4)] backdrop-blur-md">
+                <h2 className="text-xl md:text-3xl font-bold text-white mb-4 md:mb-8 sm:4  truncate">
                   {item.title}
                 </h2>
 

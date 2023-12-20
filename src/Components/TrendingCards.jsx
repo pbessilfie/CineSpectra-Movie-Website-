@@ -8,7 +8,7 @@ const TrendingCards = ({ movies, setMovies, selectedCategory }) => {
   );
   console.log(filteredMovies);
   return (
-    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-start">
+    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
       {filteredMovies.map((movie) => (
         <Link to={"/"} key={movie.id}>
           <div className="w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
@@ -28,11 +28,10 @@ const TrendingCards = ({ movies, setMovies, selectedCategory }) => {
           <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-44 sm:w-52">
             {movie.title}
           </h3>
-          <div className="flex items-center justify-center text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
-            <span>
-              {filteredMovies.contentType === "movie"
-                ? movie.release_date.slice(0, 4)
-                : movie.first_aired.slice(0, 4)}
+          <div className="flex items-center justify-start text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
+            <span className=" w-14 truncate">
+              {movie.release_date}
+              {movie.first_aired}
             </span>
             <div className="h-2 w-2 rounded-full bg-gray-500"></div>
             <span>{"180m"}</span>

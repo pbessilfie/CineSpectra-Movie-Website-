@@ -1,12 +1,12 @@
 import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-const LatestMovieCards = () => {
+const MovieCards = () => {
   const [latestMovie, setLatestMovie] = useState([]);
 
   useEffect(() => {
-    async function fetchLatestMovie() {
-      const url = "https://movies-api14.p.rapidapi.com/home";
+    async function fetchMovie() {
+      const url = "https://movies-api14.p.rapidapi.com/movies";
       const options = {
         method: "GET",
         headers: {
@@ -19,7 +19,7 @@ const LatestMovieCards = () => {
       try {
         const response = await fetch(url, options);
         const result = await response.json();
-        const lmovie = result[1].movies;
+        const lmovie = result.movies;
         console.log(lmovie);
         setLatestMovie(lmovie);
         console.log(result);
@@ -27,7 +27,7 @@ const LatestMovieCards = () => {
         console.error(error);
       }
     }
-    fetchLatestMovie();
+    fetchMovie();
   }, []);
   return (
     <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
@@ -64,4 +64,4 @@ const LatestMovieCards = () => {
   );
 };
 
-export default LatestMovieCards;
+export default MovieCards;

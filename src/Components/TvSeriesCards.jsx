@@ -1,27 +1,26 @@
-import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
-const LatestMovieCards = () => {
-  const [latestMovie, setLatestMovie] = useState([]);
+
+const TvSeriesCards = () => {
+  const [tvSeries, setTvSeries] = useState([]);
 
   useEffect(() => {
     async function fetchLatestMovie() {
-      const url = "https://movies-api14.p.rapidapi.com/home";
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
-          "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
-        },
-      };
+     const url = "https://movies-api14.p.rapidapi.com/shows";
+     const options = {
+       method: "GET",
+       headers: {
+         "X-RapidAPI-Key": "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
+         "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
+       },
+     };
 
       try {
         const response = await fetch(url, options);
         const result = await response.json();
-        const lmovie = result[1].movies;
-        console.log(lmovie);
-        setLatestMovie(lmovie);
+        const tvseries = result.movies;
+        setTvSeries(tvseries);
         console.log(result);
       } catch (error) {
         console.error(error);
@@ -30,8 +29,8 @@ const LatestMovieCards = () => {
     fetchLatestMovie();
   }, []);
   return (
-    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
-      {latestMovie.map((data) => (
+    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
+      {tvSeries.map((data) => (
         <Link to={"/"} key={data.id}>
           <div className="w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
             <img
@@ -51,7 +50,7 @@ const LatestMovieCards = () => {
             {data.title}
           </h3>
           <div className="flex items-center justify-start text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
-            <span>{data.release_date.slice(0, 4)}</span>
+            <span>{data.first_aired.slice(0, 4)}</span>
             <div className="h-2 w-2 rounded-full bg-gray-500"></div>
             <span>{'180m'}</span>
             <div className=" border border-slate-300 px-2 rounded-md ml-2 sm:ml-4 text-base">
@@ -64,4 +63,4 @@ const LatestMovieCards = () => {
   );
 };
 
-export default LatestMovieCards;
+export default TvSeriesCards;

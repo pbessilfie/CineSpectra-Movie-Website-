@@ -12,7 +12,7 @@ const LatestTvSeriesCards = () => {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "5077291e76msh72ea80f762f4575p113f6djsn2af64b33e436",
+            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
           "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
         },
       };
@@ -50,10 +50,10 @@ const LatestTvSeriesCards = () => {
           <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-44 sm:w-52">
             {data.title}
           </h3>
-          <div className="flex items-center justify-center text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
+          <div className="flex items-center justify-start text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
             <span>{data.first_aired.slice(0, 4)}</span>
             <div className="h-2 w-2 rounded-full bg-gray-500"></div>
-            <span>{data.duration}</span>
+            <span>{'180m'}</span>
             <div className=" border border-slate-300 px-2 rounded-md ml-2 sm:ml-4 text-base">
               {data.contentType}
             </div>

@@ -1,7 +1,9 @@
+import SingleMovie from "./SingleMovie"
 
 const TopIMDB = () => {
   return (
-    <div>TopIMDB</div>
+    <div><SingleMovie/></div>
+
   )
 }
 

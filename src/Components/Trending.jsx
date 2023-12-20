@@ -16,7 +16,7 @@ const Trending = () => {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "5077291e76msh72ea80f762f4575p113f6djsn2af64b33e436",
+            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
           "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
         },
       };
@@ -40,7 +40,7 @@ const Trending = () => {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "5077291e76msh72ea80f762f4575p113f6djsn2af64b33e436",
+            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
           "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
         },
       };
@@ -76,8 +76,8 @@ const Trending = () => {
   };
 
   return (
-    <div className="bg-secondaryColor p-4 lg:px-40 py-16 mx-auto">
-      <div className="flex items-center gap-4 px-4 mb-6">
+    <div className="bg-secondaryColor p-4 lg:px-16 py-10 mx-auto">
+      <div className="flex items-center gap-4 px-4 mb-6 ml-20">
         <h2 className="text-2xl sm:text-4xl font-semibold text-slate-300">
           Trending
         </h2>
