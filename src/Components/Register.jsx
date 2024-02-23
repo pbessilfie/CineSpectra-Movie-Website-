@@ -92,7 +92,7 @@ const Register = ({ registered, setRegistered, iconColor, btnHover }) => {
       <div
         className={`${
           !toggleFormChange
-            ? "min-w-[300px] xl:w-[400px] min-h-[300px] lg:w-[400px] md:w-[380px] sm:w-[300px] flex flex-col justify-center items-center  rounded-lg  p-10 backdrop-blur-lg bg-[rgba(255,255,255,0.5)] "
+            ? "min-w-[320px] xl:w-[400px] min-h-[300px] lg:w-[400px] md:w-[380px] sm:w-[35 0px] flex flex-col justify-center items-center  rounded-lg  p-10 backdrop-blur-lg bg-[rgba(255,255,255,0.5)] "
             : "hidden"
         }`}
       >

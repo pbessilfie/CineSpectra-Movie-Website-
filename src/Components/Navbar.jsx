@@ -11,7 +11,7 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className=" sticky top-0 left-0 z-[1000] w-full flex justify-between items-center md:h-20 lg:px-12 px-4 py-4 backdrop-blur-lg md:px-2 md:py-2 bg-[rgba(255,255,255,0.7)]">
+    <header className=" sticky top-0 left-0 z-[1000] w-full flex justify-between items-center md:h-20 lg:px-8 px-4 py-4 backdrop-blur-lg md:px-2 md:py-2 bg-[rgba(255,255,255,0.7)]">
       <div className="flex items-center justify-center gap-5">
         <button
           className="text-primaryColor cursor-pointer block lg:hidden"
@@ -37,7 +37,7 @@ export const Navbar = () => {
       {/* search bar for lg devices
        */}
 
-      <div className=" hidden sm:flex items-center gap-2 px-2 w-[550px] md:w-[500px] sm:w-[400px] h-12 bg-[rgba(255,255,255,0.5)] rounded-md border border-primaryColor">
+      <div className=" hidden sm:flex items-center gap-2 px-2 w-[550px] lg:w-[420px] md:w-[400px] sm:w-[350px] h-12 bg-[rgba(255,255,255,0.5)] rounded-md border border-primaryColor">
         <FaSearch className="text-blue-800 text-xl cursor-pointer" />
         <input
           type="search"
@@ -45,6 +45,7 @@ export const Navbar = () => {
           className="h-full w-full bg-transparent text-blue-800 focus:outline-none placeholder:text-blue-800"
         />
       </div>
+
       <nav className="min-w-7xl ">
         {/* navlinks for lg devices */}
         <ul className="hidden lg:flex justify-center items-center md:gap-4 md:text-lg gap-8 text-xl">
@@ -59,7 +60,7 @@ export const Navbar = () => {
                 className={({ isActive }) =>
                   isActive
                     ? "active-nav"
-                    : " text-primaryColor font-semibold  hover:underline uppercase"
+                    : " text-primaryColor font-semibold  hover:underline hover:underline-offset-4  uppercase"
                 }
               >
                 {link.name}

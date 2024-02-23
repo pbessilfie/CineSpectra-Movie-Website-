@@ -1,20 +1,57 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
-const TrendingCards = ({ movies, setMovies, selectedCategory }) => {
+const TrendingCards = ({ movies, selectedCategory }) => {
+  const navigate = useNavigate();
+
   const filteredMovies = movies.filter(
     (filteredMovie) =>
       !selectedCategory || filteredMovie.contentType === selectedCategory
   );
-  console.log(filteredMovies);
+  // console.log(filteredMovies);
   return (
     <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
-      {filteredMovies.map((movie) => (
-        <Link to={"/"} key={movie.id}>
-          <div className="w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
+      {filteredMovies.slice(0,21).map((movie) => (
+        <div
+          key={movie.id}
+        
+          onClick={() => {
+            navigate(
+              movie.contentType === "movie"
+                ? `/movies/watch/?id=${encodeURIComponent(
+                    movie.id
+                  )}&backdropImage=${encodeURIComponent(
+                    movie.backdrop_path
+                  )}&title=${encodeURIComponent(
+                    movie.title
+                  )}&overview=${encodeURIComponent(
+                    movie.overview
+                  )}&ReleaseDate=${encodeURIComponent(
+                    movie.release_date
+                  )}&poster=${encodeURIComponent(
+                    movie.poster_path
+                  )}&genres=${encodeURIComponent(movie.genres)}`
+                : `/tv-series/watch/?id=${encodeURIComponent(
+                    movie.id
+                  )}&backdropImage=${encodeURIComponent(
+                    movie.backdrop_path
+                  )}&title=${encodeURIComponent(
+                    movie.title
+                  )}&overview=${encodeURIComponent(
+                    movie.overview
+                  )}&ReleaseDate=${encodeURIComponent(
+                    movie.release_date
+                  )}&poster=${encodeURIComponent(
+                    movie.poster_path
+                  )}&genres=${encodeURIComponent(movie.genres)}`
+            );
+          }}
+        >
+          <div className="w-44 h-76 sm:w-52 sm:h-80 w rounded-lg overflow-hidden relative group">
             <img
               src={movie.poster_path}
               className="h-full w-full object-cover group-hover:scale-150 transition duration-300"
+              loading="lazy"
             />
             <span className="absolute top-2 right-2 z-20 bg-white text-primaryColor p-1 rounded-md text-sm font-semibold ">
               {"HD"}
@@ -39,7 +76,7 @@ const TrendingCards = ({ movies, setMovies, selectedCategory }) => {
               {movie.contentType}
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );

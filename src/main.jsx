@@ -8,29 +8,9 @@ import Movies from "./Pages/Movies";
 import TvSeries from "./Pages/TvSeries";
 import TopIMDB from "./Pages/TopIMDB";
 import SingleMovie from "./Pages/SingleMovie";
-
-async function fetchMovie({ params }) {
-  // const movieId = params._id;
-  const url = `https://movies-api14.p.rapidapi.com/movies/${params.movies._id}`;
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
-      "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
-    },
-  };
-
-  try {
-    const response = await fetch(url, options);
-    const result = await response.json();
-    console.log(result);
-    const data = result.movies;
-  
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
+import SingleTvSeries  from "./Pages/SingleTvSeries";
+import WatchMovie from "./Pages/WatchMovie";
+import WatchTvSeries from "./Pages/WatchTvSeries";
 
 const router = createBrowserRouter([
   {
@@ -54,9 +34,64 @@ const router = createBrowserRouter([
         element: <TopIMDB />,
       },
       {
-        path: "/movie/watch/:movies._id",
+        path: "/watch-movie",
+        element: <WatchMovie />,
+      },
+      {
+        path: "/watch-tv-series/",
+        element: <WatchTvSeries />,
+      },
+      {
+        path: "/movies/watch/",
         element: <SingleMovie />,
-        loader: fetchMovie,
+        // loader: async () => {
+        //   const url = `https://movies-api14.p.rapidapi.com/movies`;
+        //   const options = {
+        //     method: "GET",
+        //     headers: {
+        //       "X-RapidAPI-Key":
+        //         "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
+        //       "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
+        //     },
+        //   };
+
+        //   try {
+        //     const response = await fetch(url, options);
+        //     const result = await response.json();
+        //     console.log(result);
+        //     const movies = result.movies;
+        //     return movies;
+        //   } catch (error) {
+        //     console.error(error);
+        //     return null
+        //   }
+        // },
+      },
+      {
+        path: "/tv-series/watch?",
+        element: <SingleTvSeries />,
+        // loader: async () => {
+        //   const url = `https://movies-api14.p.rapidapi.com/shows/`;
+        //   const options = {
+        //     method: "GET",
+        //     headers: {
+        //       "X-RapidAPI-Key":
+        //         "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
+        //       "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
+        //     },
+        //   };
+
+        //   try {
+        //     const response = await fetch(url, options);
+        //     const result = await response.json();
+        //     console.log(result);
+        //     const series = result.movies;
+        //     return series;
+        //   } catch (error) {
+        //     console.error(error);
+        //     return null
+        //   }
+        // },
       },
     ],
   },

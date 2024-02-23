@@ -23,7 +23,7 @@ const Home = () => {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
+            "612199ff77msh559be55a52238d8p10d0a3jsne70fd9e423f1",
           "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
         },
       };
@@ -49,7 +49,7 @@ const Home = () => {
           centeredSlides={true}
           loop={true}
           autoplay={{
-            delay: 2500,
+            delay: 3000,
             disableOnInteraction: false,
           }}
           pagination={{
@@ -57,26 +57,32 @@ const Home = () => {
           }}
           navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
-          className="mySwiper w-full p-4 h-[40vh] md:h-[600px] "
+          className="mySwiper w-full p-4  "
         >
-          {weekTopTen.slice(0, 11).map((item) => (
+          {weekTopTen.slice(0, 10).map((item) => (
             <SwiperSlide key={item.id} className="relative">
-              <div className="h-auto rounded-lg">
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-secondaryColor xl:via-secondaryColor to-transparent z-10 "></div>
+
+              <div className="h-auto rounded-lg xl:w-8/12 xl:ml-auto relative ">
                 <img
                   src={item.backdrop_path}
                   className="w-full h-full object-cover"
                 />
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-l from-secondaryColor to-transparent "></div>
               </div>
-              
-              <div className="absolute top-[50%] md:top-[45%] left-2 text-white min-w-[300px] md:w-[50%] sm:w-[40%] lg:w-[40%] md:p-6 bg-[rgba(0,10,100,0.4)] backdrop-blur-md">
-                <h2 className="text-xl md:text-3xl font-bold text-white mb-4 md:mb-8 sm:4  truncate">
+
+              <div
+                className="absolute top-[40%] md:top-[45%] left-10 xl:left-20 text-white min-w-[400px] md:w-[50%] sm:w-[40%] lg:w-[40%] md:p-6 bg-[rgba(0,10,100,0.4)] backdrop-blur-md p-2 rounded-md z-20
+              "
+              >
+                <h2 className="text-xl md:text-3xl font-bold text-white mb-4 md:mb-8 sm:4 truncate">
                   {item.title}
                 </h2>
 
                 <div className="hidden justify-between items-center gap-4 sm:flex md:w-[75%] lg:w-[50%} sm:w-[90%] m-4 ">
                   <div className="flex gap-1  items-center">
                     <FaPlayCircle />
-                    <span>{item.contentType}</span>
+                    <span className="">{item.contentType}</span>
                   </div>
                   <div className="flex gap-1  items-center">
                     <FaClock />
@@ -95,14 +101,21 @@ const Home = () => {
                   </div>
                 </div>
 
-                <p className="mb-2 leading-5 hidden sm:block">
+                <p className="mb-2 hidden overflow-hidden sm:block  w-full h-18 leading-snug">
                   {item.overview}
                 </p>
                 <div className="flex gap-2 ">
                   <Button
                     name={"Watch Now"}
                     playIcon
-                    backgroundColor={"bg-primaryColor flex px-2 py-2"}
+                    backgroundColor={
+                      "bg-primaryColor flex px-2 py-2 hover:bg-white hover:text-primaryColor"
+                    }
+                    handleRoute={
+                      item.contentType === "movie"
+                        ? `/movies/watch/${item._id}`
+                        : `/tv-series/watch/${item._id}`
+                    }
                   />
                   <Button
                     name={"Detail"}
@@ -114,7 +127,6 @@ const Home = () => {
               </div>
             </SwiperSlide>
           ))}
-        
         </Swiper>
         <div className="">
           {" "}

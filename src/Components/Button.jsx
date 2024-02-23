@@ -1,4 +1,5 @@
 import { FaChevronRight, FaPlayCircle, FaPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Button = ({
   name,
@@ -10,18 +11,24 @@ const Button = ({
   hidden,
   borderProps,
   handleClick,
+  handleRoute
 }) => {
-  return (
-    <div
-      className={`${textColor} ${backgroundColor} sm:px-6 sm:py-2 rounded-md font-semibold ${hidden} ${borderProps} md:flex items-center gap-1 cursor-pointer text-sm`}
-      onClick={handleClick}
-    >
-      {playIcon && <FaPlayCircle />}
-      {plusIcon && <FaPlus />}
-      {name}
 
-      {chevron && <FaChevronRight />}
-    </div>
+  return (
+    <Link to={handleRoute}>
+      {" "}
+      <div
+        className={`${textColor} ${backgroundColor} sm:px-6 sm:py-2 rounded-md font-semibold ${hidden} ${borderProps} sm:flex items-center gap-1 cursor-pointer text-sm`}
+        to={handleClick}
+        onClick={handleClick}
+      >
+        {playIcon && <FaPlayCircle />}
+        {plusIcon && <FaPlus />}
+        {name}
+
+        {chevron && <FaChevronRight />}
+      </div>
+    </Link>
   );
 };
 

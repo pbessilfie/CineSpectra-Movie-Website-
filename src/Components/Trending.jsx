@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TrendingCards from "./TrendingCards";
 
+
 const Trending = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [trendingTvSeries, setTrendingTvSeries] = useState([]);
@@ -16,7 +17,7 @@ const Trending = () => {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
+            "612199ff77msh559be55a52238d8p10d0a3jsne70fd9e423f1",
           "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
         },
       };
@@ -40,7 +41,7 @@ const Trending = () => {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
+            "612199ff77msh559be55a52238d8p10d0a3jsne70fd9e423f1",
           "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
         },
       };
@@ -60,7 +61,7 @@ const Trending = () => {
 
   // Joining trendingMovies and trendingTvSeries together
   const trending = trendingMovies.concat(trendingTvSeries);
-  console.log(trending);
+  // console.log(trending);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -76,8 +77,8 @@ const Trending = () => {
   };
 
   return (
-    <div className="bg-secondaryColor p-4 lg:px-16 py-10 mx-auto">
-      <div className="flex items-center gap-4 px-4 mb-6 ml-20">
+    <div className="bg-secondaryColor p-4 lg:px-16 py-10 mx-auto ">
+      <div className="flex items-center gap-4 px-4 mb-6 md:ml-20">
         <h2 className="text-2xl sm:text-4xl font-semibold text-slate-300">
           Trending
         </h2>

@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 const LatestTvSeriesCards = () => {
+  const navigate = useNavigate();
   const [latestTvSeries, setLatestTvSeries] = useState([]);
 
   useEffect(() => {
@@ -12,7 +13,7 @@ const LatestTvSeriesCards = () => {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
+            "612199ff77msh559be55a52238d8p10d0a3jsne70fd9e423f1",
           "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
         },
       };
@@ -30,13 +31,33 @@ const LatestTvSeriesCards = () => {
     fetchLatestMovie();
   }, []);
   return (
-    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
-      {latestTvSeries.map((data) => (
-        <Link to={"/"} key={data.id}>
+    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
+      {latestTvSeries.slice(0, 18).map((data) => (
+        <div
+          onClick={() => {
+            const genresString = data.genres.join(",");
+
+            navigate(
+              `/tv-series/watch/?title=${encodeURIComponent(
+                data.title
+              )}&backdropImage=${encodeURIComponent(
+                data.backdrop_path
+              )}&overview=${encodeURIComponent(
+                data.overview
+              )}&ReleaseDate=${encodeURIComponent(
+                data.release_date
+              )}&poster=${encodeURIComponent(
+                data.poster_path
+              )}&genres=${encodeURIComponent(genresString)}`
+            );
+          }}
+          key={data.id}
+        >
           <div className="w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
             <img
               src={data.poster_path}
               className="h-full w-full object-cover group-hover:scale-150 transition duration-300"
+              loading="lazy"
             />
             <span className="absolute top-2 right-2 z-20 bg-white text-primaryColor p-1 rounded-md text-sm font-semibold ">
               {"HD"}
@@ -53,12 +74,12 @@ const LatestTvSeriesCards = () => {
           <div className="flex items-center justify-start text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
             <span>{data.first_aired.slice(0, 4)}</span>
             <div className="h-2 w-2 rounded-full bg-gray-500"></div>
-            <span>{'180m'}</span>
+            <span>{"180m"}</span>
             <div className=" border border-slate-300 px-2 rounded-md ml-2 sm:ml-4 text-base">
               {data.contentType}
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );
