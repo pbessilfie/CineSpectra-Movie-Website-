@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { apiHeaders } from "../constants";
 
 const TvSeriesCards = () => {
   const navigate = useNavigate();
@@ -12,11 +13,7 @@ const TvSeriesCards = () => {
       const url = "https://movies-api14.p.rapidapi.com/shows";
       const options = {
         method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "612199ff77msh559be55a52238d8p10d0a3jsne70fd9e423f1",
-          "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
-        },
+        headers: apiHeaders,
       };
 
       try {
@@ -73,7 +70,7 @@ const TvSeriesCards = () => {
           <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-44 sm:w-52">
             {data.title}
           </h3>
-          <div className="flex items-center justify-start text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
+          <div className="w-full flex items-center justify-evenly text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
             <span>{data.first_aired.slice(0, 4)}</span>
             <div className="h-2 w-2 rounded-full bg-gray-500"></div>
             <span>{"180m"}</span>

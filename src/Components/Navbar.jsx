@@ -3,13 +3,31 @@ import { FaBars, FaRegUser, FaSearch, FaTimes } from "react-icons/fa";
 import Button from "./Button";
 import { NavLink } from "react-router-dom";
 import Register from "./Register";
-import { useState } from "react";
+import {  useState } from "react";
+import SearchBar from "./SearchBar";
+import SearchResultList from "./SearchResultList";
 
 export const Navbar = () => {
   const [registered, setRegistered] = useState(false);
   const [searchBar, setSearchBar] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+  const [isFocused, setIsFocused] = useState(false);
+  const [input, setInput] = useState("");
 
+  
+    const handleSearchResultItemClick = () => {
+      setIsFocused(true);
+    };
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+  const handleChange = (value) => {
+    setInput(value);
+  };
   return (
     <header className=" sticky top-0 left-0 z-[1000] w-full flex justify-between items-center md:h-20 lg:px-8 px-4 py-4 backdrop-blur-lg md:px-2 md:py-2 bg-[rgba(255,255,255,0.7)]">
       <div className="flex items-center justify-center gap-5">
@@ -36,15 +54,15 @@ export const Navbar = () => {
 
       {/* search bar for lg devices
        */}
-
-      <div className=" hidden sm:flex items-center gap-2 px-2 w-[550px] lg:w-[420px] md:w-[400px] sm:w-[350px] h-12 bg-[rgba(255,255,255,0.5)] rounded-md border border-primaryColor">
-        <FaSearch className="text-blue-800 text-xl cursor-pointer" />
-        <input
-          type="search"
-          placeholder="Search for movies or tvseries"
-          className="h-full w-full bg-transparent text-blue-800 focus:outline-none placeholder:text-blue-800"
-        />
-      </div>
+      <SearchBar
+        input={input}
+        setInput={setInput}
+        setSearchResult={setSearchResult}
+        setIsFocused={setIsFocused}
+        handleBlur={handleBlur}
+        handleFocus={handleFocus}
+        handleChange={handleChange}
+      />
 
       <nav className="min-w-7xl ">
         {/* navlinks for lg devices */}
@@ -72,6 +90,10 @@ export const Navbar = () => {
 
       <div className="flex justify-center items-center gap-5">
         {" "}
+        <button onClick={() => setSearchBar(!searchBar)}>
+          {" "}
+          <FaSearch className="md:hidden text-xl cursor-pointer text-primaryColor" />
+        </button>
         <Button
           name={"Login"}
           backgroundColor={"bg-primaryColor"}
@@ -79,10 +101,6 @@ export const Navbar = () => {
           hidden={"hidden"}
           handleClick={() => setRegistered(!registered)}
         />
-        <button onClick={() => setSearchBar(!searchBar)}>
-          {" "}
-          <FaSearch className="sm:hidden text-xl cursor-pointer text-primaryColor" />
-        </button>
         <button className="cursor-pointer block  sm:hidden ">
           <FaRegUser
             className="sm:text-primaryColor text-xl sm:text-3xl text-primaryColor"
@@ -144,23 +162,41 @@ export const Navbar = () => {
 
       {/* search bar for mobile devices */}
       {searchBar && (
-        <div className="fixed top-[100%] left-0 bg-primaryColor px-2 h-40 sm:h-32 w-full flex justify-center items-center">
-          <div className="flex items-center gap-2 px-2 w-[380px]  md:w-[500px] h-12 bg-[rgba(255,255,255,0.5)] rounded-md bg-white">
+        <div
+          className="fixed top-[100%] left-0 bg-secondaryColor  px-2
+        py-2 max-h-[90vh] w-full flex flex-col justify-center items-center"
+        >
+          <div className="flex items-center gap-2 px-2 w-[380px]  md:w-[500px] h-12  rounded-md bg-white">
             <FaSearch className="text-blue-800 text-xl cursor-pointer" />
             <input
               type="search"
+              value={input}
               placeholder="Search for movies or tvseries"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               className="h-full w-full bg-transparent text-blue-800 focus:outline-none placeholder:text-blue-800"
+              onChange={(e) => {
+                handleChange(e.target.value);
+              }}
             />
           </div>
-          <button
-            className="absolute top-0 right-0 p-2 bg-white border border-primaryColor rounded-bl-xl text-primaryColor text-xl cursor-pointer"
-            onClick={() => setSearchBar(!searchBar)}
-          >
-            {" "}
-            <FaTimes />
-          </button>
+
+          {isFocused && searchResult.length > 0 && input.length && (
+            <SearchResultList
+              searchResult={searchResult}
+              reStyles={"w-full mt-10 "}
+            />
+          )}
         </div>
+      )}
+      {isFocused && searchResult.length > 0 && input.length && (
+        <SearchResultList
+          searchResult={searchResult}
+          onSearchResultItemClick = {handleSearchResultItemClick}
+          reStyles={
+            "absolute hidden md:block top-[100%] left-[23%] md:w-[350px] xl:w-[500px]"
+          }
+        />
       )}
     </header>
   );

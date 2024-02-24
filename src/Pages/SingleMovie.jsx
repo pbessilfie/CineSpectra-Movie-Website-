@@ -14,14 +14,14 @@ const SingleMovie = () => {
   const genresString = searchParams.get("genres");
   const genres = genresString ? genresString.split(",") : [];
 
-  console.log(
-    title,
-    release_date,
-    poster_path,
-    overview,
-    genres,
-    backdrop_path
-  );
+  // console.log(
+  //   title,
+  //   release_date,
+  //   poster_path,
+  //   overview,
+  //   genres,
+  //   backdrop_path
+  // );
   const navigate = useNavigate();
   // if (!data || data.length === 0) {
   //   return <div>Loading...</div>;
@@ -42,11 +42,7 @@ const SingleMovie = () => {
         <button
           className="absolute z-20 top-[47%] left-[47%] bg-white md:bg-blue-800 md:text-white p-4 md:p-6 lg:p-8 rounded-full "
           onClick={() => {
-            navigate(
-              `/watch-movie?title=${encodeURIComponent(
-                title
-              )}&poster=${encodeURIComponent(poster_path)}`
-            );
+            navigate(`/watch-movie?title=${encodeURIComponent(title)}`);
           }}
         >
           <FaPlay className="text-xl" />

@@ -1,3 +1,7 @@
+export const apiHeaders = {
+  "X-RapidAPI-Key": "5077291e76msh72ea80f762f4575p113f6djsn2af64b33e436",
+  "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
+};
 export const navLinks = [
   {
     path: "/",
@@ -185,7 +189,6 @@ export const footerLinks = [
   { path: "/tv-series", name: "Mystery" },
 ];
 
-export const Api_Key = "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c";
 
 export const movieData = [
   {

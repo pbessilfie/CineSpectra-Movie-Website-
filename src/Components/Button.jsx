@@ -11,20 +11,22 @@ const Button = ({
   hidden,
   borderProps,
   handleClick,
-  handleRoute
+  handleRoute,
+  handlePath,
 }) => {
-
   return (
-    <Link to={handleRoute}>
+    <Link to={handleRoute} onClick={handlePath}>
       {" "}
       <div
         className={`${textColor} ${backgroundColor} sm:px-6 sm:py-2 rounded-md font-semibold ${hidden} ${borderProps} sm:flex items-center gap-1 cursor-pointer text-sm`}
         to={handleClick}
         onClick={handleClick}
       >
-        {playIcon && <FaPlayCircle />}
-        {plusIcon && <FaPlus />}
-        {name}
+        <span className="flex items-center justify-evenly ">
+          {playIcon && <FaPlayCircle />}
+          {plusIcon && <FaPlus />}
+          <h3 className="ml-2">{name}</h3>
+        </span>
 
         {chevron && <FaChevronRight />}
       </div>

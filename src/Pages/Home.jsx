@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { FaClock, FaPlayCircle } from "react-icons/fa";
 import { BsCalendarDateFill } from "react-icons/bs";
 // import { movieData } from "../constants";
 
 import Button from "../Components/Button";
+import { apiHeaders } from "../constants";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -15,17 +18,14 @@ import LatestMovies from "../Components/LatestMovies";
 import LatestTvSeries from "../Components/LatestTvSeries";
 import { useEffect, useState } from "react";
 const Home = () => {
+  const navigate = useNavigate();
   const [weekTopTen, setWeekTopTen] = useState([]);
   useEffect(() => {
     async function fetchMovie() {
       const url = "https://movies-api14.p.rapidapi.com/movies";
       const options = {
         method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "612199ff77msh559be55a52238d8p10d0a3jsne70fd9e423f1",
-          "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
-        },
+        headers: apiHeaders,
       };
 
       try {
@@ -72,10 +72,10 @@ const Home = () => {
               </div>
 
               <div
-                className="absolute top-[40%] md:top-[45%] left-10 xl:left-20 text-white min-w-[400px] md:w-[50%] sm:w-[40%] lg:w-[40%] md:p-6 bg-[rgba(0,10,100,0.4)] backdrop-blur-md p-2 rounded-md z-20
+                className="absolute left-0 sm:left-10 bottom-0 md:bottom-[12%] xl:left-20 text-white min-w-[300px] md:w-[55%] sm:w-[60%] lg:w-[40%] md:p-6 bg-[rgba(0,10,100,0.7)] backdrop-blur-md p-2 rounded-md z-20
               "
               >
-                <h2 className="text-xl md:text-3xl font-bold text-white mb-4 md:mb-8 sm:4 truncate">
+                <h2 className="w-full text-xl md:text-3xl font-bold text-white mb-4 md:mb-8 sm:4 truncate">
                   {item.title}
                 </h2>
 
@@ -90,7 +90,7 @@ const Home = () => {
                   </div>
                   <div className="flex gap-1  items-center">
                     <BsCalendarDateFill />
-                    <span>{item.release_date}</span>
+                    <span>{item.release_date.slice(0, 4)}</span>
                   </div>
 
                   <div
@@ -101,7 +101,7 @@ const Home = () => {
                   </div>
                 </div>
 
-                <p className="mb-2 hidden overflow-hidden sm:block  w-full h-18 leading-snug">
+                <p className="mb-2 hidden overflow-hidden sm:block  w-full h-16 leading-snug">
                   {item.overview}
                 </p>
                 <div className="flex gap-2 ">
@@ -111,16 +111,42 @@ const Home = () => {
                     backgroundColor={
                       "bg-primaryColor flex px-2 py-2 hover:bg-white hover:text-primaryColor"
                     }
-                    handleRoute={
-                      item.contentType === "movie"
-                        ? `/movies/watch/${item._id}`
-                        : `/tv-series/watch/${item._id}`
-                    }
+                    handlePath={() => {
+                      navigate(
+                        item.contentType === "movie"
+                          ? `/movies/watch/?id=${encodeURIComponent(
+                              item.id
+                            )}&backdropImage=${encodeURIComponent(
+                              item.backdrop_path
+                            )}&title=${encodeURIComponent(
+                              item.title
+                            )}&overview=${encodeURIComponent(
+                              item.overview
+                            )}&ReleaseDate=${encodeURIComponent(
+                              item.release_date
+                            )}&poster=${encodeURIComponent(
+                              item.poster_path
+                            )}&genres=${encodeURIComponent(item.genres)}`
+                          : `/tv-series/watch/?id=${encodeURIComponent(
+                              item.id
+                            )}&backdropImage=${encodeURIComponent(
+                              item.backdrop_path
+                            )}&title=${encodeURIComponent(
+                              item.title
+                            )}&overview=${encodeURIComponent(
+                              item.overview
+                            )}&ReleaseDate=${encodeURIComponent(
+                              item.release_date
+                            )}&poster=${encodeURIComponent(
+                              item.poster_path
+                            )}&genres=${encodeURIComponent(item.genres)}`
+                      );
+                    }}
                   />
                   <Button
                     name={"Detail"}
                     chevron
-                    backgroundColor={"bg-slate-200 flex px-2"}
+                    backgroundColor={"bg-slate-200 flex px-2 py-2"}
                     textColor={"text-primaryColor"}
                   />
                 </div>

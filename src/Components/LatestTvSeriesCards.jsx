@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { apiHeaders } from "../constants";
 
 const LatestTvSeriesCards = () => {
   const navigate = useNavigate();
@@ -11,11 +12,7 @@ const LatestTvSeriesCards = () => {
       const url = "https://movies-api14.p.rapidapi.com/home";
       const options = {
         method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "612199ff77msh559be55a52238d8p10d0a3jsne70fd9e423f1",
-          "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
-        },
+        headers: apiHeaders,
       };
 
       try {
