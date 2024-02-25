@@ -5,6 +5,7 @@ import Button from "../Components/Button";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { BsListTask } from "react-icons/bs";
 import { seriesData } from "../constants";
+import RecommendedTvSeries from "../Components/RecommendedTvSeries";
 
 const SingleTvSeries = () => {
   const navigate = useNavigate();
@@ -182,6 +183,9 @@ const SingleTvSeries = () => {
           )}
         </div>
       </div>
+
+      {/* recommended tvseries */}
+      <RecommendedTvSeries />
     </div>
   );
 };

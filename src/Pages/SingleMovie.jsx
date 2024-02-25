@@ -2,6 +2,7 @@ import { FaPlay } from "react-icons/fa";
 import Button from "../Components/Button";
 // import { movieData } from "../constants";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import RecommendedMovies from "../Components/RecommendedMovies";
 
 const SingleMovie = () => {
   // const data = useLoaderData();
@@ -135,6 +136,8 @@ const SingleMovie = () => {
           </div>
         </div>
       </div>
+
+      <RecommendedMovies />
     </div>
   );
 };

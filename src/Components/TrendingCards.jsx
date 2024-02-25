@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
-const TrendingCards = ({ movies, selectedCategory }) => {
+import Loader from "./loader";
+const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
   const navigate = useNavigate();
 
   const filteredMovies = movies.filter(
@@ -11,10 +12,10 @@ const TrendingCards = ({ movies, selectedCategory }) => {
   // console.log(filteredMovies);
   return (
     <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
-      {filteredMovies.slice(0,21).map((movie) => (
+      {isLoading && <Loader />}
+      {filteredMovies.slice(0, 21).map((movie) => (
         <div
           key={movie.id}
-        
           onClick={() => {
             navigate(
               movie.contentType === "movie"

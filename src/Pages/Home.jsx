@@ -17,9 +17,11 @@ import Trending from "../Components/Trending";
 import LatestMovies from "../Components/LatestMovies";
 import LatestTvSeries from "../Components/LatestTvSeries";
 import { useEffect, useState } from "react";
+
 const Home = () => {
   const navigate = useNavigate();
   const [weekTopTen, setWeekTopTen] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchMovie() {
       const url = "https://movies-api14.p.rapidapi.com/movies";
@@ -33,6 +35,7 @@ const Home = () => {
         const result = await response.json();
         const items = result.movies;
         setWeekTopTen(items);
+        setIsLoading(false);
         console.log(result);
       } catch (error) {
         console.error(error);
@@ -59,6 +62,9 @@ const Home = () => {
           modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper w-full p-4  "
         >
+          {isLoading && (
+            <div className="text-2xl font-semibold text-white">Loading...</div>
+          )}
           {weekTopTen.slice(0, 10).map((item) => (
             <SwiperSlide key={item.id} className="relative">
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-secondaryColor xl:via-secondaryColor to-transparent z-10 "></div>
@@ -156,14 +162,14 @@ const Home = () => {
         </Swiper>
         <div className="">
           {" "}
-          <Trending />
+          <Trending isLoading={isLoading} setIsLoading={setIsLoading} />
         </div>
 
         <div>
-          <LatestMovies />
+          <LatestMovies isLoading={isLoading} setIsLoading={setIsLoading} />
         </div>
         <div>
-          <LatestTvSeries />
+          <LatestTvSeries isLoading={isLoading} setIsLoading={setIsLoading} />
         </div>
       </section>
       {/* Trending Section */}

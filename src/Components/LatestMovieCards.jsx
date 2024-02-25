@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiHeaders } from "../constants";
 
-const LatestMovieCards = () => {
+const LatestMovieCards = ({isLoading, setIsLoading}) => {
   const [latestMovie, setLatestMovie] = useState([]);
   const navigate = useNavigate();
+  
   useEffect(() => {
     async function fetchLatestMovie() {
       const url = "https://movies-api14.p.rapidapi.com/home";
@@ -20,6 +21,7 @@ const LatestMovieCards = () => {
         const lmovie = result[1].movies;
         console.log(lmovie);
         setLatestMovie(lmovie);
+        setIsLoading(false)
         console.log(result);
       } catch (error) {
         console.error(error);
@@ -29,6 +31,9 @@ const LatestMovieCards = () => {
   }, []);
   return (
     <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
+      {isLoading && (
+        <div className="text-2xl font-semibold text-white">Loading...</div>
+      )}
       {latestMovie.slice(0, 18).map((data) => (
         <div
           onClick={() => {

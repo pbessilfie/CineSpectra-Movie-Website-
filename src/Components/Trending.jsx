@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import TrendingCards from "./TrendingCards";
 import { apiHeaders } from "../constants";
 
-const Trending = () => {
+const Trending = ({isLoading, setIsLoading}) => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [trendingTvSeries, setTrendingTvSeries] = useState([]);
   const categories = ["movie", "show"];
@@ -23,7 +23,8 @@ const Trending = () => {
         const result = await response.json();
         const trendingMovies = result[0].movies;
         setTrendingMovies(trendingMovies);
-        console.log(result);
+        setIsLoading(false);
+        // console.log(result);
       } catch (error) {
         console.error(error);
       }
@@ -43,7 +44,9 @@ const Trending = () => {
         const result = await response.json();
         const trendingTvShows = result[5].movies;
         setTrendingTvSeries(trendingTvShows);
-        console.log(result);
+        setIsLoading(false);
+
+        // console.log(result);
       } catch (error) {
         console.error(error);
       }
@@ -92,6 +95,7 @@ const Trending = () => {
       </div>
 
       <TrendingCards
+        isLoading={isLoading}
         selectedCategory={selectedCategory}
         movies={movies}
         setMovies={setMovies}
