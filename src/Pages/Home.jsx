@@ -17,7 +17,7 @@ import Trending from "../Components/Trending";
 import LatestMovies from "../Components/LatestMovies";
 import LatestTvSeries from "../Components/LatestTvSeries";
 import { useEffect, useState } from "react";
-import Loader from "../Components/loader";
+import Loader from "../Components/Loader";
 const Home = () => {
   const navigate = useNavigate();
   const [weekTopTen, setWeekTopTen] = useState([]);
