@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { apiHeaders } from "../constants";
-import Loader from "./loader";
+import CardSkeleton from "./CardSkeleton";
 
 const RecommendedTvSeries = () => {
   const navigate = useNavigate();
@@ -37,11 +37,7 @@ const RecommendedTvSeries = () => {
       <h2 className="text-2xl font-semibold text-slate-200 my-4 p-4">
         You may also like
       </h2>
-      {isLoading && (
-        <div className="flex items-center justify-center">
-          <Loader />
-        </div>
-      )}
+      {isLoading && <CardSkeleton cards={12} />}
       <div
         className="flex w-full overflow-x-auto scrollbar-hidden px-3 pb-5"
         style={{ scrollbarWidth: "none" }}
