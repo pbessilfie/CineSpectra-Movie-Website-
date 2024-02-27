@@ -18,7 +18,6 @@ import LatestMovies from "../Components/LatestMovies";
 import LatestTvSeries from "../Components/LatestTvSeries";
 import { useEffect, useState } from "react";
 import Loader from "../Components/loader";
-
 const Home = () => {
   const navigate = useNavigate();
   const [weekTopTen, setWeekTopTen] = useState([]);
