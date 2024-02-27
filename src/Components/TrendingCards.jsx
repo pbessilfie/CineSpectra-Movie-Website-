@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
-import Loader from "./loader";
 import CardSkeleton from "./CardSkeleton";
 const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
   const navigate = useNavigate();
