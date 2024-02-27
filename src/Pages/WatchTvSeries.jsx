@@ -22,7 +22,7 @@ const WatchTvSeries = () => {
   };
 
   return (
-    <section className="bg-secondaryColor xl:px-14 xl:py-10">
+    <section className="bg-secondaryColor xl:px-14 xl:py-10" >
       <div className="flex flex-col xl:flex-row xl:max-h-[780px]  ">
         <div className="w-full xl:w-[70%] ">
           <h2 className="bg-slate-800 p-6 text-xl font-semibold text-slate-200">

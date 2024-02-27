@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { apiHeaders } from "../constants";
+import CardSkeleton from "./CardSkeleton";
 
 const TvSeriesCards = () => {
   const navigate = useNavigate();
 
   const [tvSeries, setTvSeries] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchLatestMovie() {
@@ -22,6 +24,7 @@ const TvSeriesCards = () => {
         const tvseries = result.movies;
         setTvSeries(tvseries);
         // console.log(result);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -30,9 +33,12 @@ const TvSeriesCards = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
+    <div className="grid grid-cols-2 gap-2 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
+      {isLoading && <CardSkeleton cards={16} />}
+
       {tvSeries.map((data) => (
         <div
+          className=" w-36 sm:w-52"
           onClick={() => {
             const genresString = data.genres.join(",");
 
@@ -52,7 +58,7 @@ const TvSeriesCards = () => {
           }}
           key={data.id}
         >
-          <div className="w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
+          <div className="w-full h-68 sm:w-full sm:h-80 rounded-lg overflow-hidden relative group">
             <img
               src={data.poster_path}
               className="h-full w-full object-cover group-hover:scale-150 transition duration-300"
@@ -67,7 +73,7 @@ const TvSeriesCards = () => {
             </button>
           </div>
 
-          <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-44 sm:w-52">
+          <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-full sm:w-full">
             {data.title}
           </h3>
           <div className="w-full flex items-center justify-evenly text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">

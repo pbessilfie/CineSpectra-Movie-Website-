@@ -1,9 +1,9 @@
 import { navLinks } from "../constants";
 import { FaBars, FaRegUser, FaSearch, FaTimes } from "react-icons/fa";
 import Button from "./Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Register from "./Register";
-import {  useState } from "react";
+import { useState } from "react";
 import SearchBar from "./SearchBar";
 import SearchResultList from "./SearchResultList";
 
@@ -12,22 +12,16 @@ export const Navbar = () => {
   const [searchBar, setSearchBar] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-  const [isFocused, setIsFocused] = useState(false);
   const [input, setInput] = useState("");
+  const [onResultClick, setOnResultClick] = useState(true);
+  const navigate = useNavigate();
 
-  
-    const handleSearchResultItemClick = () => {
-      setIsFocused(true);
-    };
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
   const handleChange = (value) => {
     setInput(value);
   };
+  // const handleKeyPress = (e) => {
+  //   e.which === 13 && setSearchBar(!searchBar);
+  // };
   return (
     <header className=" sticky top-0 left-0 z-[1000] w-full flex justify-between items-center md:h-20 lg:px-8 px-4 py-4 backdrop-blur-lg md:px-2 md:py-2 bg-[rgba(255,255,255,0.7)]">
       <div className="flex items-center justify-center gap-5">
@@ -58,10 +52,9 @@ export const Navbar = () => {
         input={input}
         setInput={setInput}
         setSearchResult={setSearchResult}
-        setIsFocused={setIsFocused}
-        handleBlur={handleBlur}
-        handleFocus={handleFocus}
         handleChange={handleChange}
+        searchResult={searchResult}
+        setOnResultClick={setOnResultClick}
       />
 
       <nav className="min-w-7xl ">
@@ -99,7 +92,10 @@ export const Navbar = () => {
           backgroundColor={"bg-primaryColor"}
           textColor={"text-white"}
           hidden={"hidden"}
-          handleClick={() => setRegistered(!registered)}
+          handleClick={() => {
+            setOnResultClick(false);
+            setRegistered(!registered);
+          }}
         />
         <button className="cursor-pointer block  sm:hidden ">
           <FaRegUser
@@ -172,30 +168,44 @@ export const Navbar = () => {
               type="search"
               value={input}
               placeholder="Search for movies or tvseries"
-              onFocus={handleFocus}
-              onBlur={handleBlur}
               className="h-full w-full bg-transparent text-blue-800 focus:outline-none placeholder:text-blue-800"
               onChange={(e) => {
                 handleChange(e.target.value);
               }}
+              onKeyUp={(e) => {
+                if (e.which === 13) {
+                  const searchDataString = JSON.stringify(searchResult);
+                  navigate(
+                    `/search-results/?keyword=${encodeURIComponent(
+                      input
+                    )}&results=${encodeURIComponent(searchDataString)}`
+                  );
+                  setInput("");
+                  setSearchBar(false);
+                }
+              }}
             />
           </div>
 
-          {isFocused && searchResult.length > 0 && input.length && (
+          {onResultClick && searchResult.length > 0 && input.length && (
             <SearchResultList
+              input={input}
+              setInput={setInput}
               searchResult={searchResult}
               reStyles={"w-full mt-10 "}
             />
           )}
         </div>
       )}
-      {isFocused && searchResult.length > 0 && input.length && (
+
+      {onResultClick && searchResult.length > 0 && input.length && (
         <SearchResultList
           searchResult={searchResult}
-          onSearchResultItemClick = {handleSearchResultItemClick}
           reStyles={
-            "absolute hidden md:block top-[100%] left-[23%] md:w-[350px] xl:w-[500px]"
+            " absolute hidden md:block top-[100%] left-[23%] md:w-[350px] xl:w-[500px]"
           }
+          input={input}
+          setInput={setInput}
         />
       )}
     </header>

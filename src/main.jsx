@@ -1,3 +1,4 @@
+import { SkeletonTheme } from "react-loading-skeleton";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -8,9 +9,10 @@ import Movies from "./Pages/Movies";
 import TvSeries from "./Pages/TvSeries";
 import TopIMDB from "./Pages/TopIMDB";
 import SingleMovie from "./Pages/SingleMovie";
-import SingleTvSeries  from "./Pages/SingleTvSeries";
+import SingleTvSeries from "./Pages/SingleTvSeries";
 import WatchMovie from "./Pages/WatchMovie";
 import WatchTvSeries from "./Pages/WatchTvSeries";
+import SearchResult from "./Pages/SearchResult";
 
 const router = createBrowserRouter([
   {
@@ -44,61 +46,23 @@ const router = createBrowserRouter([
       {
         path: "/movies/watch/",
         element: <SingleMovie />,
-        // loader: async () => {
-        //   const url = `https://movies-api14.p.rapidapi.com/movies`;
-        //   const options = {
-        //     method: "GET",
-        //     headers: {
-        //       "X-RapidAPI-Key":
-        //         "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
-        //       "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
-        //     },
-        //   };
-
-        //   try {
-        //     const response = await fetch(url, options);
-        //     const result = await response.json();
-        //     console.log(result);
-        //     const movies = result.movies;
-        //     return movies;
-        //   } catch (error) {
-        //     console.error(error);
-        //     return null
-        //   }
-        // },
       },
       {
         path: "/tv-series/watch?",
         element: <SingleTvSeries />,
-        // loader: async () => {
-        //   const url = `https://movies-api14.p.rapidapi.com/shows/`;
-        //   const options = {
-        //     method: "GET",
-        //     headers: {
-        //       "X-RapidAPI-Key":
-        //         "7006ffebe7msh69ecf299faf54bdp16d7a4jsnf34180fa5f2c",
-        //       "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
-        //     },
-        //   };
-
-        //   try {
-        //     const response = await fetch(url, options);
-        //     const result = await response.json();
-        //     console.log(result);
-        //     const series = result.movies;
-        //     return series;
-        //   } catch (error) {
-        //     console.error(error);
-        //     return null
-        //   }
-        // },
+      },
+      {
+        path: "/search-results?",
+        element: <SearchResult />,
       },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />{" "}
-  </React.StrictMode>
+  <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+    <React.StrictMode>
+      <RouterProvider router={router} />{" "}
+    </React.StrictMode>
+  </SkeletonTheme>
 );

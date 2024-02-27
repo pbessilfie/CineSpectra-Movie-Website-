@@ -1,15 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 
-const SearchResultList = ({
-  searchResult,
-  reStyles,
-  onSearchResultItemClick,
-}) => {
+const SearchResultList = ({ searchResult, reStyles, input, setInput }) => {
   const navigate = useNavigate();
-  const handleSearchResultClick = () => {
-    onSearchResultItemClick;
-  };
+
   return (
     <div className={` ${reStyles} bg-white rounded-b-md max-h-[660px] `}>
       {" "}
@@ -18,7 +12,6 @@ const SearchResultList = ({
           key={data._id}
           className=" flex  border-b border-primaryColor border-dashed p-1 lg:p-3 hover:bg-slate-300 transition-all duration-100 cursor-pointer "
           onClick={() => {
-            handleSearchResultClick;
             navigate(
               data.contentType === "movie"
                 ? `/movies/watch/?id=${encodeURIComponent(
@@ -48,6 +41,7 @@ const SearchResultList = ({
                     data.poster_path
                   )}&genres=${encodeURIComponent(data.genres)}`
             );
+            setInput("");
           }}
         >
           <div className=" w-10 h-16 lg:w-16 lg:h-24 rounded-md overflow-hidden ">
@@ -74,7 +68,18 @@ const SearchResultList = ({
           </div>
         </div>
       ))}
-      <div className="w-full">
+      <div
+        className="w-full"
+        onClick={() => {
+          const searchDataString = JSON.stringify(searchResult);
+          navigate(
+            `/search-results/?keyword=${encodeURIComponent(
+              input
+            )}&results=${encodeURIComponent(searchDataString)}`
+          );
+          setInput("");
+        }}
+      >
         {" "}
         <Button
           name={"View all results"}

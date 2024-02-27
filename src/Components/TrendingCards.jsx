@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import Loader from "./loader";
+import CardSkeleton from "./CardSkeleton";
 const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
   const navigate = useNavigate();
 
@@ -11,10 +12,11 @@ const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
   );
   // console.log(filteredMovies);
   return (
-    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
-      {isLoading && <Loader />}
-      {filteredMovies.slice(0, 21).map((movie) => (
+    <div className="grid grid-cols-2 gap-2 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
+      {isLoading && <CardSkeleton cards={16} />}
+      {filteredMovies.slice(0, 24).map((movie) => (
         <div
+          className=" w-36 sm:w-52"
           key={movie.id}
           onClick={() => {
             navigate(
@@ -48,7 +50,7 @@ const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
             );
           }}
         >
-          <div className="w-44 h-76 sm:w-52 sm:h-80 w rounded-lg overflow-hidden relative group">
+          <div className="w-full h-68 sm:w-full sm:h-80 w rounded-lg overflow-hidden relative group">
             <img
               src={movie.poster_path}
               className="h-full w-full object-cover group-hover:scale-150 transition duration-300"
@@ -63,7 +65,7 @@ const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
             </button>
           </div>
 
-          <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-44 sm:w-52">
+          <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-full sm:w-52">
             {movie.title}
           </h3>
           <div className="flex items-center justify-start text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">

@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { apiHeaders } from "../constants";
+import CardSkeleton from "./CardSkeleton";
 
-const LatestTvSeriesCards = () => {
+const LatestTvSeriesCards = ({ isLoading, setIsLoading }) => {
   const navigate = useNavigate();
   const [latestTvSeries, setLatestTvSeries] = useState([]);
 
@@ -28,9 +29,12 @@ const LatestTvSeriesCards = () => {
     fetchLatestMovie();
   }, []);
   return (
-    <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center">
-      {latestTvSeries.slice(0, 18).map((data) => (
+    <div className="grid grid-cols-2 gap-2 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
+      {isLoading && <CardSkeleton cards={16} />}
+
+      {latestTvSeries.slice(0, 24).map((data) => (
         <div
+          className=" w-36 sm:w-52"
           onClick={() => {
             const genresString = data.genres.join(",");
 
@@ -50,7 +54,7 @@ const LatestTvSeriesCards = () => {
           }}
           key={data.id}
         >
-          <div className="w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
+          <div className="w-full h-68 sm:w-full sm:h-80 rounded-lg overflow-hidden relative group">
             <img
               src={data.poster_path}
               className="h-full w-full object-cover group-hover:scale-150 transition duration-300"
@@ -65,7 +69,7 @@ const LatestTvSeriesCards = () => {
             </button>
           </div>
 
-          <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-44 sm:w-52">
+          <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-full sm:w-full">
             {data.title}
           </h3>
           <div className="flex items-center justify-start text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
