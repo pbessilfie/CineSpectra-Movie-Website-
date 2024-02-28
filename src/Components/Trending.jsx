@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import TrendingCards from "./TrendingCards";
 import { apiHeaders } from "../constants";
 
-const Trending = ({isLoading, setIsLoading}) => {
+const Trending = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [trendingTvSeries, setTrendingTvSeries] = useState([]);
   const categories = ["movie", "show"];
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeCategory, setActiveCategory] = useState(categories[0]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // fetching trending movies
   useEffect(() => {

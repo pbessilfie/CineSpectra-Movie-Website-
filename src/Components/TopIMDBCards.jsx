@@ -1,16 +1,15 @@
-import { FaPlay } from "react-icons/fa";
-import {  Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiHeaders } from "../constants";
 import CardSkeleton from "./CardSkeleton";
+import { Link } from "react-router-dom";
+import { FaPlay } from "react-icons/fa";
 
-const MovieCards = () => {
-  const [latestMovie, setLatestMovie] = useState([]);
-  // const navigate = useNavigate();
+const TopIMDBCards = () => {
+  const [topImdb, setTopImdb] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    async function fetchMovie() {
-      const url = "https://movies-api14.p.rapidapi.com/movies";
+    async function fetchTopImdb() {
+      const url = "https://movies-api14.p.rapidapi.com/home";
       const options = {
         method: "GET",
         headers: apiHeaders,
@@ -19,30 +18,26 @@ const MovieCards = () => {
       try {
         const response = await fetch(url, options);
         const result = await response.json();
-        const lmovie = result.movies;
-        // console.log(lmovie);
-        setLatestMovie(lmovie);
+        const topRated = result[3].movies;
+        setTopImdb(topRated);
         setIsLoading(false);
         // console.log(result);
       } catch (error) {
         console.error(error);
       }
     }
-    fetchMovie();
+    fetchTopImdb();
   }, []);
-
   return (
     <div className="grid grid-cols-2 gap-2 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
       {isLoading && <CardSkeleton cards={14} />}
-
-      {latestMovie.map((data) => (
+      {topImdb.slice(0, 24).map((data) => (
         <Link
           to={`/movies/watch/${data._id}`}
           className=" w-36 sm:w-52"
-         
           key={data._id}
         >
-          <div className="w-full h-60 sm:w-full sm:h-80 rounded-lg overflow-hidden relative group">
+          <div className="w-full h-60 sm:w-full sm:h-80 w rounded-lg overflow-hidden relative group">
             <img
               src={data.poster_path}
               className="h-full w-full object-cover group-hover:scale-150 transition duration-300"
@@ -57,11 +52,14 @@ const MovieCards = () => {
             </button>
           </div>
 
-          <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-full sm:w-full">
+          <h3 className="text-sm sm:text-lg m-1 text-slate-100 font-semibold truncate w-full sm:w-52">
             {data.title}
           </h3>
           <div className="flex items-center justify-start text-sm sm:text-lg gap-1 sm:gap-2 md:gap-3 text-slate-100">
-            <span>{data.release_date.slice(0, 4)}</span>
+            <span className=" w-14 truncate">
+              {data.release_date}
+              {data.first_aired}
+            </span>
             <div className="h-2 w-2 rounded-full bg-gray-500"></div>
             <span>{"180m"}</span>
             <div className=" border border-slate-300 px-2 rounded-md ml-2 sm:ml-4 text-base">
@@ -74,4 +72,4 @@ const MovieCards = () => {
   );
 };
 
-export default MovieCards;
+export default TopIMDBCards;

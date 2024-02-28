@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { apiHeaders } from "../constants";
 import CardSkeleton from "./CardSkeleton";
 
 const TvSeriesCards = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [tvSeries, setTvSeries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,31 +34,15 @@ const TvSeriesCards = () => {
 
   return (
     <div className="grid grid-cols-2 gap-2 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
-      {isLoading && <CardSkeleton cards={16} />}
+      {isLoading && <CardSkeleton cards={14} />}
 
       {tvSeries.map((data) => (
-        <div
+        <Link
+          to={`/tv-series/watch/${data._id}`}
           className=" w-36 sm:w-52"
-          onClick={() => {
-            const genresString = data.genres.join(",");
-
-            navigate(
-              `/tv-series/watch/?title=${encodeURIComponent(
-                data.title
-              )}&backdropImage=${encodeURIComponent(
-                data.backdrop_path
-              )}&overview=${encodeURIComponent(
-                data.overview
-              )}&ReleaseDate=${encodeURIComponent(
-                data.release_date
-              )}&poster=${encodeURIComponent(
-                data.poster_path
-              )}&genres=${encodeURIComponent(genresString)}`
-            );
-          }}
           key={data.id}
         >
-          <div className="w-full h-68 sm:w-full sm:h-80 rounded-lg overflow-hidden relative group">
+          <div className="w-full h-60 sm:w-full sm:h-80 rounded-lg overflow-hidden relative group">
             <img
               src={data.poster_path}
               className="h-full w-full object-cover group-hover:scale-150 transition duration-300"
@@ -84,7 +68,7 @@ const TvSeriesCards = () => {
               {data.contentType}
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

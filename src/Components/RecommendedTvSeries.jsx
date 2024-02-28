@@ -37,11 +37,11 @@ const RecommendedTvSeries = () => {
       <h2 className="text-2xl font-semibold text-slate-200 my-4 p-4">
         You may also like
       </h2>
-      {isLoading && <CardSkeleton cards={12} />}
       <div
         className="flex w-full overflow-x-auto scrollbar-hidden px-3 pb-5"
         style={{ scrollbarWidth: "none" }}
       >
+        {isLoading && <CardSkeleton cards={12} />}
         {recommendedTvSeries.slice(9, 30).map((data) => (
           <div
             onClick={() => {

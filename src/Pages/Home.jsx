@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { FaClock, FaPlayCircle } from "react-icons/fa";
 import { BsCalendarDateFill } from "react-icons/bs";
 // import { movieData } from "../constants";
@@ -19,7 +18,6 @@ import LatestTvSeries from "../Components/LatestTvSeries";
 import { useEffect, useState } from "react";
 import Loader from "../Components/Loader";
 const Home = () => {
-  const navigate = useNavigate();
   const [weekTopTen, setWeekTopTen] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -48,11 +46,10 @@ const Home = () => {
       {" "}
       <section className="">
         <Swiper
-          spaceBetween={30}
-          centeredSlides={true}
+          spaceBetween={10}
           loop={true}
           autoplay={{
-            delay: 3000,
+            delay: 2500,
             disableOnInteraction: false,
           }}
           pagination={{
@@ -60,7 +57,7 @@ const Home = () => {
           }}
           navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
-          className="mySwiper w-full p-4 min-h-[50vh] bg-secondaryColor "
+          className="mySwiper w-full p-4 min-w-[35vh] sm:min-h-[50vh] bg-secondaryColor "
         >
           {isLoading && (
             <div className=" w-full h-[50vh] flex items-center justify-center">
@@ -68,7 +65,7 @@ const Home = () => {
             </div>
           )}
           {!isLoading &&
-            weekTopTen.slice(0, 10).map((item) => (
+            weekTopTen.slice(0, 20).map((item) => (
               <SwiperSlide key={item.id} className="relative">
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-secondaryColor xl:via-secondaryColor to-transparent z-10 "></div>
 
@@ -120,37 +117,11 @@ const Home = () => {
                       backgroundColor={
                         "bg-primaryColor flex px-2 py-2 hover:bg-white hover:text-primaryColor"
                       }
-                      handlePath={() => {
-                        navigate(
-                          item.contentType === "movie"
-                            ? `/movies/watch/?id=${encodeURIComponent(
-                                item.id
-                              )}&backdropImage=${encodeURIComponent(
-                                item.backdrop_path
-                              )}&title=${encodeURIComponent(
-                                item.title
-                              )}&overview=${encodeURIComponent(
-                                item.overview
-                              )}&ReleaseDate=${encodeURIComponent(
-                                item.release_date
-                              )}&poster=${encodeURIComponent(
-                                item.poster_path
-                              )}&genres=${encodeURIComponent(item.genres)}`
-                            : `/tv-series/watch/?id=${encodeURIComponent(
-                                item.id
-                              )}&backdropImage=${encodeURIComponent(
-                                item.backdrop_path
-                              )}&title=${encodeURIComponent(
-                                item.title
-                              )}&overview=${encodeURIComponent(
-                                item.overview
-                              )}&ReleaseDate=${encodeURIComponent(
-                                item.release_date
-                              )}&poster=${encodeURIComponent(
-                                item.poster_path
-                              )}&genres=${encodeURIComponent(item.genres)}`
-                        );
-                      }}
+                      handleRoute={
+                        item.contentType === "movie"
+                          ? `/movies/watch/${item._id}`
+                          : `/tv-series/watch/${item._id}`
+                      }
                     />
                     <Button
                       name={"Detail"}
@@ -165,14 +136,14 @@ const Home = () => {
         </Swiper>
         <div className="">
           {" "}
-          <Trending isLoading={isLoading} setIsLoading={setIsLoading} />
+          <Trending />
         </div>
 
         <div>
-          <LatestMovies isLoading={isLoading} setIsLoading={setIsLoading} />
+          <LatestMovies />
         </div>
         <div>
-          <LatestTvSeries isLoading={isLoading} setIsLoading={setIsLoading} />
+          <LatestTvSeries />
         </div>
       </section>
       {/* Trending Section */}

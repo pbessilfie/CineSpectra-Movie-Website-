@@ -2,34 +2,24 @@ import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import Button from "../Components/Button";
 // import { movieData } from "../constants";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import { BsListTask } from "react-icons/bs";
-import { seriesData } from "../constants";
+import { apiHeaders, seriesData } from "../constants";
 import RecommendedTvSeries from "../Components/RecommendedTvSeries";
 
 const SingleTvSeries = () => {
   const navigate = useNavigate();
-  const [selectedSeason, setSelectedSeason] = useState(seriesData[0].Season_No);
-  // console.log(selectedSeason);
-  const [searchParams] = useSearchParams();
-  const title = searchParams.get("title");
-  const backdrop_path = searchParams.get("backdropImage");
-  const overview = searchParams.get("overview");
-  const release_date = searchParams.get("ReleaseDate");
-  const poster_path = searchParams.get("poster");
-  const genresString = searchParams.get("genres");
-  const genres = genresString ? genresString.split(",") : [];
-  // const data = useLoaderData();
-  // console.log(data);
+ 
+  const data = useLoaderData();
+  const [selectedSeason, setSelectedSeason] = useState(
+    `Season ${data.seasons[0].season}`
+  );
+  console.log(selectedSeason);
 
-  // if (!data || data.length === 0) {
-  //   return <div>Loading...</div>;
-  // }
-  // const { backdrop_path, title, overview, release_date, poster_path, genres } =
-  //   data[0];
 
-  const filteredSeasons = seriesData.filter(
-    (filteredSeason) => filteredSeason.Season_No === selectedSeason
+
+  const filteredSeasons = data.seasons.filter(
+    (filteredSeason) => `Season ${filteredSeason.season}` === selectedSeason
   );
   // console.log(filteredSeasons);
   const handleSeasonChange = (e) => {
@@ -38,10 +28,10 @@ const SingleTvSeries = () => {
   return (
     <div className="w-full bg-secondaryColor">
       {/* movie backdrop-image */}
-      <div className="relative w-full lg:h-[80vh]">
+      <div className="relative w-full lg:h-[80vh] z-10">
         <img
-          src={backdrop_path}
-          alt={title}
+          src={data.show.backdrop_path}
+          alt={data.show.title}
           className="w-full h-full object-cover"
         />
         <div className="absolute w-full h-full bg-[rgba(0,0,0,0.7)] top-0 left-0 hover:backdrop-blur-sm"></div>
@@ -51,11 +41,11 @@ const SingleTvSeries = () => {
       </div>
 
       {/* series details */}
-      <div className="flex gap-8 w-[95%] lg:w-[80%] rounded-xl bg-white mx-auto  z-30 p-8">
+      <div className="flex gap-8 w-[95%] xl:w-[80%] rounded-xl bg-white mx-auto z-30 p-8">
         <div className="hidden md:inline-block w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative">
           <img
-            src={poster_path}
-            alt={title}
+            src={data.show.poster_path}
+            alt={data.show.title}
             className="w-full h-full object-cover"
             loading="lazy"
           />
@@ -79,7 +69,7 @@ const SingleTvSeries = () => {
             />
           </div>
 
-          <h2 className="text-2xl md:text-3xl mb-2">{title}</h2>
+          <h2 className="text-2xl md:text-3xl mb-2">{data.show.title}</h2>
 
           <div className="flex items-center gap-2 my-4">
             <Button
@@ -93,7 +83,7 @@ const SingleTvSeries = () => {
             </div>
             <span className="font-bold text-blue-700 ml-4 text-base">
               {" "}
-              IMDB: 9.8
+              IMDB: {data.show.vote_average}
             </span>
           </div>
 
@@ -101,18 +91,18 @@ const SingleTvSeries = () => {
             className="text-sm text-slate-500 mb-2
         "
           >
-            {overview}
+            {data.show.overview}
           </p>
           <div className="text-slate-500 text-sm">
             <p className="">
               <span className="font-semibold text-primaryColor">
                 Released:{" "}
               </span>
-              {release_date}
+              {data.show.release_date}
             </p>
             <p>
               <span className="font-semibold text-primaryColor">Genre: </span>
-              {genres.map((genre) => (
+              {data.show.genres.map((genre) => (
                 <span key={genre.id}>{genre}, </span>
               ))}
             </p>
@@ -132,7 +122,7 @@ const SingleTvSeries = () => {
 
       {/* seasons section */}
       <div
-        className="flex flex-col gap-8 w-[95%] lg:w-[80%] rounded-xl bg-white mx-auto  z-30 p-8"
+        className="flex flex-col gap-8 w-[95%] xl:w-[80%] rounded-xl bg-white mx-auto p-8"
         id="season"
       >
         <div className="flex items-center gap-3 hover:cursor-pointer ">
@@ -141,32 +131,30 @@ const SingleTvSeries = () => {
             className=" w-24 outline-none hover:cursor-pointer"
             onChange={handleSeasonChange}
           >
-            {seriesData.map((season) => (
+            {data.seasons.map((item, i) => (
               <option
                 className="font-semibold"
-                value={season.Season_No}
-                key={season.id}
+                value={`Season ${item.season}`}
+                key={i}
               >
-                {season.Season_No}
+                Season {item.season}
               </option>
             ))}
-
-            {/* <FaChevronDown /> */}
           </select>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 place-items-center gap-2">
           {filteredSeasons.map((season) =>
-            season.ep_content.map((episode, index) => (
+            season.episodes.map((episode) => (
               <div
-                key={index}
-                className="flex items-center w-80  gap-4 bg-slate-200 p-3 group  hover:cursor-pointer hover:text-blue-700 "
+                key={episode._id}
+                className="flex items-center w-full md:w-72 xl:w-72  gap-1 bg-slate-200 p-3 group  hover:cursor-pointer hover:text-blue-700 "
                 onClick={() => {
                   const seriesDataString = JSON.stringify(seriesData);
                   // console.log(seriesDataString);
                   navigate(
                     `/watch-tv-series/?title=${encodeURIComponent(
-                      title
+                      data.show.title
                     )}&episode_video_path=${encodeURIComponent(
                       episode.episode_path
                     )}&seriesData=${encodeURIComponent(seriesDataString)}`
@@ -174,9 +162,11 @@ const SingleTvSeries = () => {
                 }}
               >
                 <FaPlay className="text-sm text-primaryColor group-hover:text-blue-700" />
-                <span className="font-bold">{episode.episode_No}: </span>
-                <p className="text-sm text-gray-500 group-hover:text-blue-700">
-                  {episode.episode_title}
+                <span className="font-bold">
+                  Eps{episode.episode_number}:{" "}
+                </span>
+                <p className="text-sm text-gray-500 group-hover:text-blue-700 truncate ">
+                  {episode.title}
                 </p>
               </div>
             ))
@@ -191,3 +181,23 @@ const SingleTvSeries = () => {
 };
 
 export default SingleTvSeries;
+
+export const singleShowLoader = async ({ params }) => {
+  try {
+    const url = `https://movies-api14.p.rapidapi.com/show/${params._id}`;
+    const options = {
+      method: "GET",
+      headers: apiHeaders,
+    };
+
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

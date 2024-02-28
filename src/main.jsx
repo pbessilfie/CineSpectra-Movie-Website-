@@ -9,10 +9,11 @@ import Movies from "./Pages/Movies";
 import TvSeries from "./Pages/TvSeries";
 import TopIMDB from "./Pages/TopIMDB";
 import SingleMovie from "./Pages/SingleMovie";
-import SingleTvSeries from "./Pages/SingleTvSeries";
+import SingleTvSeries, { singleShowLoader } from "./Pages/SingleTvSeries";
 import WatchMovie from "./Pages/WatchMovie";
 import WatchTvSeries from "./Pages/WatchTvSeries";
 import SearchResult from "./Pages/SearchResult";
+import { singleMovieLoader } from "./Pages/SingleMovie";
 
 const router = createBrowserRouter([
   {
@@ -44,12 +45,14 @@ const router = createBrowserRouter([
         element: <WatchTvSeries />,
       },
       {
-        path: "/movies/watch/",
+        path: "/movies/watch/:_id",
         element: <SingleMovie />,
+        loader: singleMovieLoader,
       },
       {
-        path: "/tv-series/watch?",
+        path: "/tv-series/watch/:_id",
         element: <SingleTvSeries />,
+        loader: singleShowLoader
       },
       {
         path: "/search-results?",

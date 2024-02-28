@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import CardSkeleton from "./CardSkeleton";
 const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
-  const navigate = useNavigate();
-
   const filteredMovies = movies.filter(
     (filteredMovie) =>
       !selectedCategory || filteredMovie.contentType === selectedCategory
@@ -12,44 +10,18 @@ const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
   // console.log(filteredMovies);
   return (
     <div className="grid grid-cols-2 gap-2 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
-      {isLoading && <CardSkeleton cards={16} />}
+      {isLoading && <CardSkeleton cards={14} />}
       {filteredMovies.slice(0, 24).map((movie) => (
-        <div
+        <Link
+          to={
+            movie.contentType === "movie"
+              ? `/movies/watch/${movie._id}`
+              : `/tv-series/watch/${movie._id}`
+          }
           className=" w-36 sm:w-52"
           key={movie.id}
-          onClick={() => {
-            navigate(
-              movie.contentType === "movie"
-                ? `/movies/watch/?id=${encodeURIComponent(
-                    movie.id
-                  )}&backdropImage=${encodeURIComponent(
-                    movie.backdrop_path
-                  )}&title=${encodeURIComponent(
-                    movie.title
-                  )}&overview=${encodeURIComponent(
-                    movie.overview
-                  )}&ReleaseDate=${encodeURIComponent(
-                    movie.release_date
-                  )}&poster=${encodeURIComponent(
-                    movie.poster_path
-                  )}&genres=${encodeURIComponent(movie.genres)}`
-                : `/tv-series/watch/?id=${encodeURIComponent(
-                    movie.id
-                  )}&backdropImage=${encodeURIComponent(
-                    movie.backdrop_path
-                  )}&title=${encodeURIComponent(
-                    movie.title
-                  )}&overview=${encodeURIComponent(
-                    movie.overview
-                  )}&ReleaseDate=${encodeURIComponent(
-                    movie.release_date
-                  )}&poster=${encodeURIComponent(
-                    movie.poster_path
-                  )}&genres=${encodeURIComponent(movie.genres)}`
-            );
-          }}
         >
-          <div className="w-full h-68 sm:w-full sm:h-80 w rounded-lg overflow-hidden relative group">
+          <div className="w-full h-60 sm:w-full sm:h-80 w rounded-lg overflow-hidden relative group">
             <img
               src={movie.poster_path}
               className="h-full w-full object-cover group-hover:scale-150 transition duration-300"
@@ -78,7 +50,7 @@ const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
               {movie.contentType}
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

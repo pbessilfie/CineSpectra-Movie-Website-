@@ -1,8 +1,7 @@
 import { FaPlay } from "react-icons/fa";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 const SearchResult = () => {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const input = searchParams.get("keyword");
   const results = searchParams.get("results");
   const searchResult = JSON.parse(results);
@@ -13,38 +12,12 @@ const SearchResult = () => {
       </h2>
       <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
         {searchResult.map((data) => (
-          <div
-            onClick={() => {
-              navigate(
-                data.contentType === "movie"
-                  ? `/movies/watch/?id=${encodeURIComponent(
-                      data.id
-                    )}&backdropImage=${encodeURIComponent(
-                      data.backdrop_path
-                    )}&title=${encodeURIComponent(
-                      data.title
-                    )}&overview=${encodeURIComponent(
-                      data.overview
-                    )}&ReleaseDate=${encodeURIComponent(
-                      data.release_date
-                    )}&poster=${encodeURIComponent(
-                      data.poster_path
-                    )}&genres=${encodeURIComponent(data.genres)}`
-                  : `/tv-series/watch/?id=${encodeURIComponent(
-                      data.id
-                    )}&backdropImage=${encodeURIComponent(
-                      data.backdrop_path
-                    )}&title=${encodeURIComponent(
-                      data.title
-                    )}&overview=${encodeURIComponent(
-                      data.overview
-                    )}&ReleaseDate=${encodeURIComponent(
-                      data.release_date
-                    )}&poster=${encodeURIComponent(
-                      data.poster_path
-                    )}&genres=${encodeURIComponent(data.genres)}`
-              );
-            }}
+          <Link
+            to={
+              data.contentType === "movie"
+                ? `/movies/watch/${data._id}`
+                : `/tv-series/watch/${data._id}`
+            }
             key={data._id}
           >
             <div className="w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
@@ -73,7 +46,7 @@ const SearchResult = () => {
                 {data.contentType}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
