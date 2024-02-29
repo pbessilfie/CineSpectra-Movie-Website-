@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const SingleMovie = () => {
   // const { _id } = useParams();
   const data = useLoaderData();
-  console.log(data);
+  // console.log(data);
   const [trailer, setTrailer] = useState(false);
 
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const SingleMovie = () => {
   return (
     <div className="w-full bg-secondaryColor">
       {/* movie backdrop-image */}
-      <div className="relative w-full lg:h-[80vh]">
+      <div className="relative w-full lg:h-[75vh] min-h-[250px]">
         <img
           src={data.movie.backdrop_path}
           alt={data.movie.title}
@@ -26,10 +26,16 @@ const SingleMovie = () => {
         />
         <div className="absolute w-full h-full bg-[rgba(0,0,0,0.7)] top-0 left-0 hover:backdrop-blur-sm"></div>
         <button
-          className="absolute z-20 top-[47%] left-[47%] bg-white md:bg-blue-800 md:text-white p-4 md:p-6 lg:p-8 rounded-full "
+          className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white md:bg-blue-800 md:text-white p-4 md:p-6 lg:p-8 rounded-full "
           onClick={() => {
+            const similarMoviesString = JSON.stringify(data.similarMovies);
+            // console.log(similarMoviesString);
             navigate(
-              `/watch-movie?title=${encodeURIComponent(data.movie.title)}`
+              `/watch-movie?title=${encodeURIComponent(
+                data.movie.title
+              )}&similarMovies=${encodeURIComponent(
+                similarMoviesString
+              )}&poster=${encodeURIComponent(data.movie.backdrop_path)}`
             );
           }}
         >
@@ -61,7 +67,9 @@ const SingleMovie = () => {
                 navigate(
                   `/watch-movie?title=${encodeURIComponent(
                     data.movie.title
-                  )}&poster=${encodeURIComponent(data.movie.poster_path)}`
+                  )}&poster=${encodeURIComponent(
+                    data.movie.backdrop_path
+                  )}&videoSrc=${encodeURIComponent(data.movie.youtube_trailer)}`
                 );
               }}
             />{" "}
@@ -131,6 +139,7 @@ const SingleMovie = () => {
           <div className=" relative w-[800px]  border-2 border-white">
             <video
               src={data.movie.youtube_trailer}
+              poster={data.movie.backdrop_path}
               controls
               className="w-full h-full "
             />{" "}

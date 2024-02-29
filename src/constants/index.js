@@ -1,5 +1,5 @@
 export const apiHeaders = {
-  "X-RapidAPI-Key": "035fdc40e8msh4b50a10489d8f60p1a3c79jsn05ba8c4b51e7",
+  "X-RapidAPI-Key": "819f82b82amsh8805cf818ced636p1554e1jsnff259f1baf8f",
   "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
 };
 export const navLinks = [

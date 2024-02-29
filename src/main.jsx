@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       {
         path: "/tv-series/watch/:_id",
         element: <SingleTvSeries />,
-        loader: singleShowLoader
+        loader: singleShowLoader,
       },
       {
         path: "/search-results?",

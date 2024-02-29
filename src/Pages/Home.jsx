@@ -47,7 +47,7 @@ const Home = () => {
       <section className="">
         <Swiper
           spaceBetween={10}
-          loop={true}
+          // loop={true}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
@@ -60,12 +60,12 @@ const Home = () => {
           className="mySwiper w-full p-4 min-w-[35vh] sm:min-h-[50vh] bg-secondaryColor "
         >
           {isLoading && (
-            <div className=" w-full h-[50vh] flex items-center justify-center">
+            <div className=" w-full h-[30vh] md:h-[50vh] flex items-center justify-center">
               <Loader />
             </div>
           )}
           {!isLoading &&
-            weekTopTen.slice(0, 20).map((item) => (
+            weekTopTen.slice(0, 10).map((item) => (
               <SwiperSlide key={item.id} className="relative">
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-secondaryColor xl:via-secondaryColor to-transparent z-10 "></div>
 

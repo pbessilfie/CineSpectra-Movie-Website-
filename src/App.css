@@ -7,10 +7,4 @@
 .active-category-btn {
   @apply bg-blue-500 hover:text-white;
 }
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  display: none;
-}
-.swiper-pagination {
-  display: none;
-}
+

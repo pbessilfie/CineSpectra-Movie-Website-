@@ -10,7 +10,7 @@ const SearchResult = () => {
       <h2 className="text-2xl font-semibold text-slate-200 my-4 p-4">
         Search results for: {input}
       </h2>
-      <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 sm:flex-wrap sm:justify-center place-items-center">
         {searchResult.map((data) => (
           <Link
             to={
@@ -20,7 +20,7 @@ const SearchResult = () => {
             }
             key={data._id}
           >
-            <div className="w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
+            <div className="w-40 h-60 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative group">
               <img
                 src={data.poster_path}
                 className="h-full w-full object-cover group-hover:scale-150 transition duration-300"

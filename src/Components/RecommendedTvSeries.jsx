@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { apiHeaders } from "../constants";
 import CardSkeleton from "./CardSkeleton";
+import { Link } from "react-router-dom";
 
 const RecommendedTvSeries = () => {
-  const navigate = useNavigate();
 
   const [recommendedTvSeries, setRecommendedTvSeries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,29 +37,14 @@ const RecommendedTvSeries = () => {
         You may also like
       </h2>
       <div
-        className="flex w-full overflow-x-auto scrollbar-hidden px-3 pb-5"
+        className="flex w-full overflow-x-auto px-3 pb-5"
         style={{ scrollbarWidth: "none" }}
       >
         {isLoading && <CardSkeleton cards={12} />}
         {recommendedTvSeries.slice(9, 30).map((data) => (
-          <div
-            onClick={() => {
-              const genresString = data.genres.join(",");
-
-              navigate(
-                `/tv-series/watch/?title=${encodeURIComponent(
-                  data.title
-                )}&backdropImage=${encodeURIComponent(
-                  data.backdrop_path
-                )}&overview=${encodeURIComponent(
-                  data.overview
-                )}&ReleaseDate=${encodeURIComponent(
-                  data.release_date
-                )}&poster=${encodeURIComponent(
-                  data.poster_path
-                )}&genres=${encodeURIComponent(genresString)}`
-              );
-            }}
+          <Link
+            to={`/tv-series/watch/${data._id}`}
+          
             key={data._id}
             className="mx-1"
           >
@@ -90,7 +74,7 @@ const RecommendedTvSeries = () => {
                 {data.contentType}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

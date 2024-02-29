@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { apiHeaders } from "../constants";
+// import { apiHeaders } from "../constants";
 import CardSkeleton from "./CardSkeleton";
-
+import { apiHeaders } from "../constants";
 const TvSeriesCards = () => {
+
   // const navigate = useNavigate();
 
   const [tvSeries, setTvSeries] = useState([]);
@@ -15,7 +16,7 @@ const TvSeriesCards = () => {
       const url = "https://movies-api14.p.rapidapi.com/shows";
       const options = {
         method: "GET",
-        headers: apiHeaders,
+        headers: apiHeaders
       };
 
       try {
@@ -33,13 +34,13 @@ const TvSeriesCards = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-2 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
+    <div className="grid grid-cols-2 gap-1 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
       {isLoading && <CardSkeleton cards={14} />}
 
       {tvSeries.map((data) => (
         <Link
           to={`/tv-series/watch/${data._id}`}
-          className=" w-36 sm:w-52"
+          className=" w-40 sm:w-52"
           key={data.id}
         >
           <div className="w-full h-60 sm:w-full sm:h-80 rounded-lg overflow-hidden relative group">

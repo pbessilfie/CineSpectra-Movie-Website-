@@ -19,9 +19,7 @@ export const Navbar = () => {
   const handleChange = (value) => {
     setInput(value);
   };
-  // const handleKeyPress = (e) => {
-  //   e.which === 13 && setSearchBar(!searchBar);
-  // };
+  
   return (
     <header className=" sticky top-0 left-0 z-[1000] w-full flex justify-between items-center md:h-20 lg:px-8 px-4 py-4 backdrop-blur-lg md:px-2 md:py-2 bg-[rgba(255,255,255,0.7)]">
       <div className="flex items-center justify-center gap-5">

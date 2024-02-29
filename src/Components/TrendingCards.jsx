@@ -9,7 +9,7 @@ const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
   );
   // console.log(filteredMovies);
   return (
-    <div className="grid grid-cols-2 gap-2 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
+    <div className="grid grid-cols-2 gap-1 place-items-center sm:flex sm:gap-3 sm:flex-wrap sm:justify-center ">
       {isLoading && <CardSkeleton cards={14} />}
       {filteredMovies.slice(0, 24).map((movie) => (
         <Link
@@ -18,7 +18,7 @@ const TrendingCards = ({ movies, selectedCategory, isLoading }) => {
               ? `/movies/watch/${movie._id}`
               : `/tv-series/watch/${movie._id}`
           }
-          className=" w-36 sm:w-52"
+          className=" w-40 sm:w-52"
           key={movie.id}
         >
           <div className="w-full h-60 sm:w-full sm:h-80 w rounded-lg overflow-hidden relative group">

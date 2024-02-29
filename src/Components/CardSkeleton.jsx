@@ -5,7 +5,7 @@ const CardSkeleton = ({ cards }) => {
     .fill(0)
     .map((_, index) => (
       <div key={index} className="w-36 sm:w-52 mx-1">
-        <div className="w-full h-64 sm:h-80 rounded-lg mb-3">
+        <div className="w-full h-52 sm:h-80 rounded-lg mb-3">
           <Skeleton height={"100%"} />
         </div>
         <Skeleton width={"100%"} />

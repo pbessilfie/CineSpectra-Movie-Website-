@@ -4,19 +4,17 @@ import Button from "../Components/Button";
 // import { movieData } from "../constants";
 import { useNavigate, useLoaderData } from "react-router-dom";
 import { BsListTask } from "react-icons/bs";
-import { apiHeaders, seriesData } from "../constants";
+import { apiHeaders } from "../constants";
 import RecommendedTvSeries from "../Components/RecommendedTvSeries";
-
+import '../res-grid.css'
 const SingleTvSeries = () => {
   const navigate = useNavigate();
- 
+
   const data = useLoaderData();
   const [selectedSeason, setSelectedSeason] = useState(
     `Season ${data.seasons[0].season}`
   );
-  console.log(selectedSeason);
-
-
+  // console.log(selectedSeason);
 
   const filteredSeasons = data.seasons.filter(
     (filteredSeason) => `Season ${filteredSeason.season}` === selectedSeason
@@ -41,7 +39,7 @@ const SingleTvSeries = () => {
       </div>
 
       {/* series details */}
-      <div className="flex gap-8 w-[95%] xl:w-[80%] rounded-xl bg-white mx-auto z-30 p-8">
+      <div className="flex gap-8 w-[95%] xl:w-[90%] rounded-xl bg-white mx-auto z-30 p-8">
         <div className="hidden md:inline-block w-44 h-76 sm:w-52 sm:h-80 rounded-lg overflow-hidden relative">
           <img
             src={data.show.poster_path}
@@ -122,7 +120,7 @@ const SingleTvSeries = () => {
 
       {/* seasons section */}
       <div
-        className="flex flex-col gap-8 w-[95%] xl:w-[80%] rounded-xl bg-white mx-auto p-8"
+        className="flex flex-col gap-8 w-[95%] xl:w-[90%] rounded-xl bg-white mx-auto p-8"
         id="season"
       >
         <div className="flex items-center gap-3 hover:cursor-pointer ">
@@ -143,28 +141,24 @@ const SingleTvSeries = () => {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 place-items-center gap-2">
+        <div className="res-grid-container">
           {filteredSeasons.map((season) =>
             season.episodes.map((episode) => (
               <div
                 key={episode._id}
-                className="flex items-center w-full md:w-72 xl:w-72  gap-1 bg-slate-200 p-3 group  hover:cursor-pointer hover:text-blue-700 "
+                className="flex items-center w-full md:w-72 xl:w-64 2xl:w-80  gap-1 bg-slate-200 p-3 group  hover:cursor-pointer hover:text-blue-700 mx-1"
                 onClick={() => {
-                  const seriesDataString = JSON.stringify(seriesData);
+                  const seriesDataString = JSON.stringify(data);
                   // console.log(seriesDataString);
                   navigate(
                     `/watch-tv-series/?title=${encodeURIComponent(
                       data.show.title
-                    )}&episode_video_path=${encodeURIComponent(
-                      episode.episode_path
                     )}&seriesData=${encodeURIComponent(seriesDataString)}`
                   );
                 }}
               >
                 <FaPlay className="text-sm text-primaryColor group-hover:text-blue-700" />
-                <span className="font-bold">
-                  Eps{episode.episode_number}:{" "}
-                </span>
+                <span className="font-bold">Eps{episode.episode_number}: </span>
                 <p className="text-sm text-gray-500 group-hover:text-blue-700 truncate ">
                   {episode.title}
                 </p>
