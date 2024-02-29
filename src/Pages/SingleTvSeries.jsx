@@ -26,7 +26,7 @@ const SingleTvSeries = () => {
   return (
     <div className="w-full bg-secondaryColor">
       {/* movie backdrop-image */}
-      <div className="relative w-full lg:h-[80vh] z-10">
+      <div className="relative w-full lg:h-[75vh] min-h-[250px] z-10">
         <img
           src={data.show.backdrop_path}
           alt={data.show.title}

@@ -65,7 +65,7 @@ const Home = () => {
               prevEl: ".swiper-button-prev",
             }}
             modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper relative w-full p-4 min-w-[35vh] sm:min-h-[50vh] bg-secondaryColor"
+            className="mySwiper relative w-full p-4 min-h-[35vh] sm:min-h-[50vh] bg-secondaryColor"
           >
             {isLoading && (
               <div className=" w-full h-[30vh] md:h-[50vh] flex items-center justify-center">
@@ -143,7 +143,7 @@ const Home = () => {
               ))}
           </Swiper>
           <div className="w-4 h-48 md:h-64 rounded-full absolute top-1/2 right-2 md:left-8 -translate-x-1/2 -translate-y-1/2 flex flex-col z-40 items-center justify-center bg-[rgba(0,10,100,0.2)] ">
-            <div className="swiper-pagination backdrop-blur-lg bg-[rgba(0,10,100,0.2)]  rounded-full px-1"></div>
+            <div className="swiper-pagination w-full backdrop-blur-lg bg-[rgba(0,10,100,0.2)]  rounded-full px-1"></div>
           </div>
           {/* navigation buttons */}
           <div className="button-arrangement absolute top-1/2 right-10 -translate-x-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col justify-evenly h-36 ">

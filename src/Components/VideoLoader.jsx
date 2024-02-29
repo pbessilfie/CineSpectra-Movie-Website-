@@ -1,6 +1,6 @@
 import "../videoloader.css";
 const VideoLoader = () => {
-  return <div className="loader"></div>;
+  return <div className="video-loader"></div>;
 };
 
 export default VideoLoader;

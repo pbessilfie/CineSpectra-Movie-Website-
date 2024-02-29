@@ -51,7 +51,7 @@ const WatchTvSeries = () => {
               poster={seriesData.show.backdrop_path}
               controls
               className="w-full h-full z-10"
-              ref={videoRef}
+              // ref={videoRef}
             />
           </div>
         </div>
