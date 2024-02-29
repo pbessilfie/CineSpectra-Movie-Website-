@@ -8,3 +8,17 @@
   @apply bg-blue-500 hover:text-white;
 }
 
+.swiper-button-prev,
+.swiper-button-next,
+.swiper-pagination {
+  position: unset !important;
+  inset: unset !important;
+  width: auto !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #4fb4e0 !important;
+}
+.swiper-pagination-bullet {
+  background-color: #fff !important;
+}
