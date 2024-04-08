@@ -65,7 +65,7 @@ const Home = () => {
               prevEl: ".swiper-button-prev",
             }}
             modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper relative w-full p-4 min-h-[35vh] sm:min-h-[50vh] bg-secondaryColor"
+            className="mySwiper relative w-full p-4 min-h-[20vh] md:min-h-[50vh] sm:min-h-[45vh] bg-secondaryColor"
           >
             {isLoading && (
               <div className=" w-full h-[30vh] md:h-[50vh] flex items-center justify-center">
@@ -156,15 +156,15 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="">
+        <div className=" min-h-[240px]">
           {" "}
           <Trending />
         </div>
 
-        <div>
+        <div className="min-h-[240px]">
           <LatestMovies />
         </div>
-        <div>
+        <div className=" min-h-[240px]">
           <LatestTvSeries />
         </div>
       </section>

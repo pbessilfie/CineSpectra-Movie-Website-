@@ -64,12 +64,14 @@ const SingleMovie = () => {
               }
               textColor={"text-white"}
               handleClick={() => {
+                const similarMoviesString = JSON.stringify(data.similarMovies);
+                // console.log(similarMoviesString);
                 navigate(
                   `/watch-movie?title=${encodeURIComponent(
                     data.movie.title
-                  )}&poster=${encodeURIComponent(
-                    data.movie.backdrop_path
-                  )}&videoSrc=${encodeURIComponent(data.movie.youtube_trailer)}`
+                  )}&similarMovies=${encodeURIComponent(
+                    similarMoviesString
+                  )}&poster=${encodeURIComponent(data.movie.backdrop_path)}`
                 );
               }}
             />{" "}
